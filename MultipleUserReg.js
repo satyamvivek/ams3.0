@@ -1,6 +1,7 @@
 //excelsheet download
 var people = [
-    { FirstName: '     ', Lastname: ' ', Location: ' ', address: ' ', EmployeeId: ' ', Email_ID: ' ', Contact_Number: ' ' }
+    { user_id:' ', first_name: ' ', middle_name   : ' ',last_name   : ' ',email   : ' ', password   : ' ', user_type   : ' ',Parent_org:   '',Address:'',dept_work:'',contact_no:''
+    }
   
   ];
   

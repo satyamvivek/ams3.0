@@ -258,18 +258,32 @@ app.get('/assetSort', (req, res) => {
       const upload = multer({ storage });
       
       
-      
+      //multiple asset reg
       app.post('/assetupload', upload.single('csvFile'), function (req, res) {
         const filePath = req.file.path;
+       let taguuid=/^SA\/[a-z]{3}\/[a-z]\d\/\d{4}$/;
+       let deptid=/^(?:[1-35-9]|1[0-8])$/;
+       let empno=/^\d{6}$/;
+       let assetid=/^\d{12}$/;
+      
         fs.createReadStream(filePath)
           .pipe(csvParser())
           .on('data', function (row) {
             console.log(row);
             let Asdata1 = Object.assign({}, row);
-            let Asdata2 = Object.assign({}, row);
+            // let Asdata2 = Object.assign({}, row);
+            if(taguuid.test(row.tag_uuid) && deptid.test(row.dept_id) && empno.test(row.emp_no) && (row.asset_type=='Medical Equipments' ||row.asset_type=='Land & Land Developments'||row.asset_type=='Buildings'||row.asset_type=='Furniture, Fixture & Office Equipments' ||row.asset_type=='Motor Vehicles'||row.asset_type=='Crockery and Utensils'||row.asset_type=='Books and Library' ||row.asset_type=='Electrical, Electronics Equipments'||row.asset_type=='Machinery & Lab Equipments'||row.asset_type=='Photo Copier' ||row.asset_type=='Audio & Visual Equipment'||row.asset_type=='Telephone & EPABX'||row.asset_type=='Transformer & Generator' ||row.asset_type=='Laptop'||row.asset_type=='Computer Related'||row.asset_type=='Computer Software' ||row.asset_type=='Air Conditioner'||row.asset_type=='Solar Power Systems'||row.asset_type=='Solar Water Heating System' ||row.asset_type=='Sculpture Garden'||row.asset_type=='Central Medical Gas'||row.asset_type=='Electrical, Electronics Equipments for R&D' ||row.asset_type=='Machinery & Lab Equipments for R&D'||row.asset_type=='Furniture, Fixture & Office Equipments for R&D'||row.asset_type=='Surveylliance Equipment' ||row.asset_type=='Sports & Musical Equipment'||row.asset_type=='Computer Related for R&D'||row.asset_type=='Smart Class Room'||row.asset_type=='Asset Under Construction') && assetid.test(row.asset_id)){
+              console.log('successful::::'+row.tag_uuid);
+              console.log('successful::::'+row.dept_id);
+              console.log('successful::::'+row.emp_no);
+              console.log('successful::::'+row.asset_type);
+                // insertDataToAsDatabase1(Asdata1);
+            }
+            else{
+              console.log('invalid data')
+            }
       
-            insertDataToAsDatabase1(Asdata1);
-            insertDataToAsDatabase2(Asdata2);
+          
           })
           .on('end', function () {
             res.sendStatus(200);
@@ -283,21 +297,17 @@ app.get('/assetSort', (req, res) => {
       
       function insertDataToAsDatabase1(Asdata1) {
         console.log(Asdata1);
-        mssql.query(`INSERT INTO assets (asset_price,asset_id,asset_class,tag_id,emp_no,tag_uuid,asset_type,asset_name) VALUES ( '${Asdata1.asset_price}','${Asdata1.asset_id
-        }','${Asdata1.asset_class }', '${Asdata1.tag_id}','${Asdata1.emp_no
-        }','${Asdata1.tag_uuid }','${Asdata1.asset_type}', '${Asdata1.asset_name}')`, function (err) {
+        sql.query(`INSERT INTO assets (asset_price,asset_id,emp_no,tag_uuid,asset_type,asset_name,dept_id) VALUES ( '${Asdata1.asset_price}','${Asdata1.asset_id
+        }','${Asdata1.emp_no
+        }','${Asdata1.tag_uuid }','${Asdata1.asset_type}', '${Asdata1.asset_name}','${Asdata1.dept_id}')`, function (err) {
           if (err) {
             console.error('Error inserting data into the database1: ', err);
           }
         });
       }
       
-      function insertDataToAsDatabase2(Asdata2) {
-        console.log(Asdata2);
-      }
       
-      
-      
+      //multiple user reg
       
       app.post('/userupload', upload.single('csvFiles'), function (req, res) {
         const filePath = req.file.path;
