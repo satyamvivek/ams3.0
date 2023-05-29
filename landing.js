@@ -232,40 +232,44 @@ submitLoginForm.addEventListener('click', (e)=>{
 
 // submit asset form
 
+
+
 fetch('http://localhost:3000/d')
 .then(res => res.json())
 .then(data => {
 
-    // const { message,answer} = data
-    
-    // const option = document.createElement('option')
-    // const option1 = document.createElement('option')
-    // option.innerText = message
-    // option1.innerText = answer
-    let option = []
-    let option1 = []
+    // const { message,answer} = data
+    
+    // const option = document.createElement('option')
+    // const option1 = document.createElement('option')
+    // option.innerText = message
+    // option1.innerText = answer
+    let option = []
+    let option1 = []
 
-    const {message,answer}=data
-    console.log(data)
-    console.log(message)
-    for(let i=0;i<answer.length;i++){
-        // document.querySelector('#parental').append(option.push(message[i].Parent_org));
-        // document.querySelector('#department').append( option1.push(message[i].dept_name));
-        document.querySelector('#parental').append(new Option(answer[i].Parent_org, answer[i].Parent_org, false, false));
-        
-    }
-    for(let i=0;i<message.length;i++){
+    const {message,answer}=data
+    console.log(data)
+    console.log(message)
+    for(let i=0;i<answer.length;i++){
+        // document.querySelector('#parental').append(option.push(message[i].Parent_org));
+        // document.querySelector('#department').append( option1.push(message[i].dept_name));
+        document.querySelector('#parental').append(new Option(answer[i].Parent_org, answer[i].Parent_org, false, false));
+        
+    }
+    for(let i=0;i<message.length;i++){
 
-    document.querySelector('#department').append(new Option(message[i].dept_name, message[i].dept_name, false, false));
+    document.querySelector('#department').append(new Option(message[i].dept_name, message[i].dept_name, false, false));
 
 }
-    //append(new Option('KIIT', 'KIIT', false, false))
-    //  console.log(option);
-    //  console.log(option1)
-    // document.querySelector('#parental').append(option)
-    // document.querySelector('#department').append(option1)
+    //append(new Option('KIIT', 'KIIT', false, false))
+    //  console.log(option);
+    //  console.log(option1)
+    // document.querySelector('#parental').append(option)
+    // document.querySelector('#department').append(option1)
 })
 .catch(err => console.error(err))
+
+
 // Function to reset the form fields
 function resetForm() {
     firstName.value = '';
@@ -295,9 +299,9 @@ function resetForm() {
     let parentalValue = parental.value;
     let departmentValue = department.value;
     let contactValue = contact.value;
+
      // Get confirm password value
   let confirmPasswordValue = confirmPassword.value;
-    // let addressValue = address.value;
   
     // Validate input fields
     if (!firstNameValue || !lastNameValue || !emailValue || !passwordValue || !empIdValue || !departmentValue || !contactValue || !confirmPasswordValue) {
@@ -312,11 +316,12 @@ function resetForm() {
       return;
     }
   
-    // Validate password length
-    if (passwordValue.length < 6) {
-      alert('Password must be at least 6 characters long.');
-      return;
-    }
+    // Validate password
+    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    if (!passwordValue.match(passwordRegex)) {
+         alert('Password must contain at least one uppercase letter, one lowercase letter, one special character, one number, and be at least 6 characters long.');
+        return;
+}
 
      // Validate confirm password
   if (passwordValue !== confirmPasswordValue) {
@@ -332,7 +337,7 @@ function resetForm() {
     }
   
     // Validate contact number format
-    var contactRegex = /^\d{10}$/;
+    var contactRegex = /^[1-9]\d{9}$/;
     if (!contactValue.match(contactRegex)) {
       alert('Contact number must be a 10-digit number.');
       return;
@@ -356,9 +361,6 @@ function resetForm() {
         parental: parentalValue,
         department: departmentValue,
         contact: contactValue,
-
-
-        // address: addressValue,
         empid: empIdValue
       },
       success: function(response) {
@@ -371,11 +373,13 @@ function resetForm() {
         else{
             alert(response.response);
             console.log(response.response);
+
+             // Clear all fields
+             resetForm();
         }
        
   
-        // Clear all fields
-        resetForm();
+       
       },
       error: function(xhr, status, error) {
         // Handle the error response
@@ -385,7 +389,7 @@ function resetForm() {
   });
   
   // Event handler for cancel button or re-clicking the submit button
-  $('#submitAssetForm').click(function(e) {
+  $('.closeModal').click(function(e) {
     e.preventDefault();
   
     // Ask for confirmation before resetting the form
@@ -478,7 +482,7 @@ $('.closeModal').click(function(e){
     element.style.top = '0%';
     element.style.left = '50%';
     element.style.transform = 'translate(-50%, -110%)';
-    resetForm();
+    // resetForm();
 })
 
 function inputCheck(element, elementValue, type){
