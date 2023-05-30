@@ -306,14 +306,14 @@ function resetForm() {
     }
   
     // Validate email format
-    var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var emailRegex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
     if (!emailValue.match(emailRegex)) {
       alert('Please enter a valid email address.');
       return;
     }
   
     // Validate password
-    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    var passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{6,}$/;
     if (!passwordValue.match(passwordRegex)) {
          alert('Password must contain at least one uppercase letter, one lowercase letter, one special character, one number, and be at least 6 characters long.');
         return;
@@ -603,4 +603,3 @@ launchRequestForm.addEventListener('click', (e)=>{
     }
 
 })
-
