@@ -146,7 +146,7 @@ if (!empidv.match(empIdRegex)) {
 
 var assetIdRegex = /^\d{12}$/;
 if (!assetdv.match(assetIdRegex)) {
-  alert('Employee ID must be a 6-digit number.');
+  alert('Asset ID must be a 12-digit number.');
   return;
 }
 
