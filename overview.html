@@ -132,7 +132,7 @@
                         </div>
                 </div> -->
                       <!-- </form> -->
-                      <form id="Assetreg" action="#">
+                      <form action="#" class="login" id="Assetreg" >
                         <h1>Single Asset Registration </h1>
                         <div class="single-container">
                             <div class="form-group">
@@ -191,16 +191,25 @@
                             <div class="card-csv">
                              <h3>Upload File</h3>
                              <div class="drop-box-csv">
-                                 <header>
+                                 <!-- <header>
                                      <h4>Select File here !</h4>
-                                 </header>
+                                 </header> -->
                                  <p>File Support: CSV/EXCEL</p>
-                                 <input type="file" hidden accept=".csv" id="fileID" style="display:none;">
-                                 <button class="btn11"><i class='bx bxs-select-multiple'></i> &nbsp;Choose File</button>
+                                 <section class="uploadForm">
+                                    <img src="images/csv.jpg" width="110">
+                                  
+                                    <label for="uploadFile"><i class='bx bx-select-multiple' ></i>&nbsp;Select file</label>
+                                    <input type="file" name="uploadFile" id="uploadFile" accept=".csv" value="Select file" style="display: none">
+                                 
+                                    <div id="mess">
+                        
+                                    </div>
+                                </section>
+                                <button id="uploadBtns" class="upload-btn">Upload</button>
                              </div>
-                             <div id="message">
+                             <!-- <div id="message">
 
-                             </div>
+                             </div> -->
                          
                              <div class="file-csv">
                                 
@@ -470,7 +479,7 @@ function goToPage(page) {
         });
     </script>
   <!--Upload the file-->
-    <script>
+    <!-- <script>
         const dropArea = document.querySelector(".drop-box-csv") ,
 button=dropArea.querySelector("button") ,
 dragText=dropArea.querySelector("header"),
@@ -493,7 +502,7 @@ input.addEventListener("change", function(e){
 
 });
 
-    </script>
+    </script> -->
 
 
 <!---Download csv file   25/05/2023-->

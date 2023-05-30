@@ -155,3 +155,31 @@ console.log(assetdv )
     });
   })
 );
+
+
+
+$(document).ready(function () {
+  $('#uploadBtns').on('click', function () {
+    var fileInput = $('#uploadFile')[0];
+    var file = fileInput.files[0];
+
+    if (file) {
+      var formData = new FormData();
+      formData.append('uploadFile', file);
+
+      $.ajax({
+        url: 'http://localhost:3000/assetupload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          $('#mess').text(response);
+        },
+        error: function (error) {
+          $('#mess').text('Error uploading file.');
+        }
+      });
+    }
+  });
+});

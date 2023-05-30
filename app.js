@@ -259,7 +259,7 @@ app.get('/assetSort', (req, res) => {
       
       
       //multiple asset reg
-      app.post('/assetupload', upload.single('csvFile'), function (req, res) {
+      app.post('/assetupload', upload.single('uploadFile'), function (req, res) {
         const filePath = req.file.path;
        let taguuid=/^SA\/[a-z]{3}\/[a-z]\d\/\d{4}$/;
        let deptid=/^(?:[1-35-9]|1[0-8])$/;
@@ -272,15 +272,18 @@ app.get('/assetSort', (req, res) => {
             console.log(row);
             let Asdata1 = Object.assign({}, row);
             // let Asdata2 = Object.assign({}, row);
-            if(taguuid.test(row.tag_uuid) && deptid.test(row.dept_id) && empno.test(row.emp_no) && (row.asset_type=='Medical Equipments' ||row.asset_type=='Land & Land Developments'||row.asset_type=='Buildings'||row.asset_type=='Furniture, Fixture & Office Equipments' ||row.asset_type=='Motor Vehicles'||row.asset_type=='Crockery and Utensils'||row.asset_type=='Books and Library' ||row.asset_type=='Electrical, Electronics Equipments'||row.asset_type=='Machinery & Lab Equipments'||row.asset_type=='Photo Copier' ||row.asset_type=='Audio & Visual Equipment'||row.asset_type=='Telephone & EPABX'||row.asset_type=='Transformer & Generator' ||row.asset_type=='Laptop'||row.asset_type=='Computer Related'||row.asset_type=='Computer Software' ||row.asset_type=='Air Conditioner'||row.asset_type=='Solar Power Systems'||row.asset_type=='Solar Water Heating System' ||row.asset_type=='Sculpture Garden'||row.asset_type=='Central Medical Gas'||row.asset_type=='Electrical, Electronics Equipments for R&D' ||row.asset_type=='Machinery & Lab Equipments for R&D'||row.asset_type=='Furniture, Fixture & Office Equipments for R&D'||row.asset_type=='Surveylliance Equipment' ||row.asset_type=='Sports & Musical Equipment'||row.asset_type=='Computer Related for R&D'||row.asset_type=='Smart Class Room'||row.asset_type=='Asset Under Construction') && assetid.test(row.asset_id)){
+            if(taguuid.test(row.tag_uuid) && deptid.test(row.dept_id) && empno.test(row.emp_no) && (row.asset_type=='Medical Equipments' ||row.asset_type=='Land & Land Developments'||row.asset_type=='Buildings'||row.asset_type=='Furniture, Fixture & Office Equipments' ||row.asset_type=='Motor Vehicles'||row.asset_type=='Crockery and Utensils'||row.asset_type=='Books and Library' ||row.asset_type=='Electrical, Electronics Equipments'||row.asset_type=='Machinery & Lab Equipments'||row.asset_type=='Photo Copier' ||row.asset_type=='Audio & Visual Equipment'||row.asset_type=='Telephone & EPABX'||row.asset_type=='Transformer & Generator' ||row.asset_type=='Laptop'||row.asset_type=='Computer Related'||row.asset_type=='Computer Software' ||row.asset_type=='Air Conditioner'||row.asset_type=='Solar Power Systems'||row.asset_type=='Solar Water Heating System' ||row.asset_type=='Sculpture Garden'||row.asset_type=='Central Medical Gas'||row.asset_type=='Electrical, Electronics Equipments for R&D' ||row.asset_type=='Machinery & Lab Equipments for R&D'||row.asset_type=='Furniture, Fixture & Office Equipments for R&D'||row.asset_type=='Surveylliance Equipment' ||row.asset_type=='Sports & Musical Equipment'||row.asset_type=='Computer Related for R&D'||row.asset_type=='Smart Class Room'||row.asset_type=='Asset Under Construction') ){
               console.log('successful::::'+row.tag_uuid);
               console.log('successful::::'+row.dept_id);
               console.log('successful::::'+row.emp_no);
               console.log('successful::::'+row.asset_type);
+              console.log('successful::::'+row.asset_id);
                 // insertDataToAsDatabase1(Asdata1);
+                // res.send('file uploaded successfully');
             }
             else{
               console.log('invalid data')
+              res.send('invalid data');
             }
       
           
@@ -309,7 +312,7 @@ app.get('/assetSort', (req, res) => {
       
       //multiple user reg
       
-      app.post('/userupload', upload.single('csvFiles'), function (req, res) {
+      app.post('/userupload', upload.single('uploadFile'), function (req, res) {
         const filePath = req.file.path;
         let emailPattern= /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let phonePattern= /^[1-9]\d{9}$/;
@@ -336,8 +339,9 @@ app.get('/assetSort', (req, res) => {
               console.log('successful::::'+row.last_name);
               console.log('successful::::'+row.Parent_org);
               console.log('successful::::'+row.dept_work);
-              // insertDataToDatabase1(data1);
-              // insertDataToDatabase2(data2);
+            //   res.send('file uploaded successfully');
+            //   insertDataToDatabase1(data1);
+            //   insertDataToDatabase2(data2);
       
             }else{
               //res.sendStatus(500);
@@ -460,6 +464,10 @@ app.post('/assetreg',(req,res)=>{
                         if(err) throw err;
 
                     console.log('Insertion has been done to tags and assets');
+                    res.send({
+                        code: 'Registration_done_Successfully',
+                        response:"Registration done Successfully"
+                    })
                    } )
                 }                  
                       
@@ -475,6 +483,10 @@ app.post('/assetreg',(req,res)=>{
                 else{
 
                  console.log('Insertion has been done to tags');
+                 res.send({
+                    code: "Doesn't_exist",
+                    response: "Asset doesn't exist"
+                   });
 
                 }      
 
