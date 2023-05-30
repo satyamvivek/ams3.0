@@ -463,12 +463,12 @@ app.post('/assetreg',(req,res)=>{
 
                         if(err) throw err;
 
-                    console.log('Insertion has been done to tags and assets');
-                    res.send({
-                        code: 'Registration_done_Successfully',
-                        response:"Registration done Successfully"
-                    })
-                   } )
+                        console.log('Insertion has been done to tags and assets');
+                        res.send({
+                            code: 'Insertion has been done to tags and assets',
+                            response:'Insertion has been done to tags and assets'
+                        })
+                    } )
                 }                  
                       
             })
@@ -484,8 +484,8 @@ app.post('/assetreg',(req,res)=>{
 
                  console.log('Insertion has been done to tags');
                  res.send({
-                    code: "Doesn't_exist",
-                    response: "Asset doesn't exist"
+                    code: 'Insertion has been done to tags',
+                    response: 'Insertion has been done to tags'
                    });
 
                 }      
@@ -498,8 +498,6 @@ app.post('/assetreg',(req,res)=>{
        })
 
         }
-
-
         else{
             let queryResult1=mssql.query(query1,(err,result1)=>{  
 
@@ -511,26 +509,20 @@ app.post('/assetreg',(req,res)=>{
                         if(err) throw err;
                              
                         else{
-                            console.log('Insertion has been done to assets ')
+                            console.log('Insertion has been done to assets');
+                            res.send({response: 'Insertion has been done to assets'});
                         }
-                        
-
-
-
         })
     }
                 else{
                     console.log('This asset_id with the tag_id is already present')
-
+                    res.send({response:'This asset_id with the tag_id is already present'});
                     }
-    
                 }
                 )
             }
         })
     })  
-
-
 
 
 
