@@ -97,7 +97,7 @@ fetch('http://localhost:3000/fetchdname')
 
   // $(document).ready(function(){
 
-  let aid = document.getElementById('asset-id');
+   let aid = document.getElementById('asset-id');
 
 let aname = document.getElementById('asset-name');
 
@@ -122,15 +122,46 @@ document.getElementById('submitAssetForm').addEventListener('click', (function(e
     let empidv = empno.value;
     let taguidv= taguid.value;
 
+    // Validate input fields
+    if (!assetdv || !assetnv || !assettv || !assetpv || !deptidv || !empidv || !taguidv) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
       // Validate tag UUID format
-    var tagUuidRegex = /^SA\/[A-Z]{3}\/[A-Z]\d\/\d{4}$/;
+    var tagUuidRegex = /^SA\/[a-z]{3}\/[a-z]\d\/\d{4}$/;
     if (!tagUuidRegex.test(taguidv)) {
       alert("Invalid tag UUID format");
       return;
     }
-   
 
-    // Set the URL and request method
+      // Validate empId format
+    var empIdRegex = /^\d{6}$/;
+if (!empidv.match(empIdRegex)) {
+  alert('Employee ID must be a 6-digit number.');
+  return;
+}
+
+// Validate asset ID based on asset class
+
+var assetIdRegex = /^\d{12}$/;
+if (!assetdv.match(assetIdRegex)) {
+  alert('Employee ID must be a 6-digit number.');
+  return;
+}
+
+
+// var assetClassValue = assetClass.value; 
+
+// var assetIdRegex = new RegExp('^' + assetClassValue + '\\d{10}$');
+
+// if (!assetdv.match(assetIdRegex)) {
+//   alert('Invalid asset ID for the specified asset class.');
+//   return;
+// }
+
+
+// Set the URL and request method
     var url = 'http://localhost:3000/assetreg'; // Replace with your server-side script URL
     var method = 'POST'; // Replace with the desired request method
 console.log(assetdv )
@@ -145,7 +176,12 @@ console.log(assetdv )
         deptid:deptidv,
         empid:empidv,
         taguid:taguidv},
+        
       success: function(response) {
+       
+      console.log(response);
+        
+        
  
       },
       error: function(xhr, status, error) {
@@ -155,8 +191,6 @@ console.log(assetdv )
     });
   })
 );
-
-
 
 $(document).ready(function () {
   $('#uploadBtns').on('click', function () {
