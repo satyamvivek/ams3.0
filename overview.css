@@ -277,6 +277,7 @@ table {
     /* text-transform: uppercase; */
     white-space: nowrap;
     word-wrap: normal;
+  margin-left: 17%;
 }
 
 /*
@@ -1102,7 +1103,7 @@ body {
 
 
 .container-csv{
-    height: 120vh;
+    height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -1115,7 +1116,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 5px 10px 0 rgba(0,0,0, 0.3);
     width:  75%;        
-    height: 55%;
+    height: 65%;
     padding: 10px 30px 40px;
 
 }
@@ -1162,6 +1163,50 @@ body {
     padding: 12px 20px;
     border-radius: 5px;
 }
+
+.select-fil{
+    font-size: 1.4rem;
+    padding: 1rem 3.5em 0.8rem 2.5rem;
+    appearance: none;
+  
+    color: #333;
+  
+    width: 100%;
+    background-color: #D2DAE7;
+    border: 0;
+    outline: none;
+    border-radius: 10px;
+  }
+  
+  .submitMultiReqForm{
+    width: 30%;
+   height: 5vh;
+  
+    border-radius: 8px;
+  
+    background-color: #1b86b4;
+   color:rgb(255, 250, 250);
+   font-weight: 900;
+   font-size: 15px;
+   font-family: Arial, Helvetica, sans-serif;
+     cursor: pointer;
+     outline: none;
+  }
+  
+  
+  /**  Date:25/2023*/
+  
+  .upload-btn{
+    width: 27%;
+    height: 4vh;
+    border-radius: 15px;
+    text-decoration: none;
+    box-shadow: 2px 1px;
+    border-color: #1b86b4;
+    background-origin: padding-box;
+    background-color: #1b86b4;
+  
+  }
 
 
 
@@ -1222,40 +1267,204 @@ body {
    color:white;
    background-color:#045f75;
 
-   padding: 1px 20px;
-   font-size: 30px;
+   padding: 1px 15px;
+   font-size: 20px;
+   margin-top: 5px;
    text-decoration: none;
+   width: 100%;
    
  }
+ 
 
 
- /*file upload */
- .uploadForm, .fileResponse{
-  width: 100%;
-  height: 40%;
-  padding: 20px;
+ /**Edit reg*/
+ 
+ .single-container{
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .form-group{
+    margin-bottom: 15px;
+  }
+
+  .form-group label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+
+  }
+  
+ .form-group input[type="text"],
+ input[type="number"],
+ input[type="date"],
+ .form-group select{
+    width: 100%;
+    padding: 5px;
+    border: 1px  solid #ccc;
+    border-radius: 3px;
+ }
+
+ .form-group input[type="submit"] {
+    background-color: #354259;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .form-group input[type="submit"]:hover {
+    background-color: #354259;
+  }
+
+
+/* modal part */
+#modal-background-edit-asset{
+    display: none;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+ 
+}
+
+.wrapper-edit{
+    overflow: hidden;
+      max-width: 60%;
+      height: 90vh;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 15px 20px rgba(0,0,0,0.1); 
+   
+     margin-left: 25%;
+   
+  
+    }
+
+    #message-row {
+        background-color: #f5f5f5;
+        color: rgb(12, 12, 12);
+        font-weight: bold;
+        width: 100%;
+        height: 100vh;
+        font-size: 50px;
+     
+      }
+
+      .form-group-11{
+        display: flex;
+        justify-content: space-between;
+        
+      }
+
+      .save{
+        border-radius: 10px;
+        background-color: #1c8ebf;
+        font-size: 20px;
+       
+      }
+      .cancel{
+        border-radius: 10px;
+        background-color: rgb(71, 179, 71);
+        border-radius: none;
+        font-size: 20px;
+      }
+
+
+
+      /*  advance search**/
+      .advance-search{
+        margin-left: -45VW;
+        margin-top: -9vh;
+      }
+
+
+
+      /***/
+      #modal-background-advance-search{
+        display: none;
+        background-color: rgba(0, 0, 0, 0.2);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+     
+    }
+    
+    .wrapper-advance-search{
+        overflow: hidden;
+          max-width: 60%;
+          height: 90vh;
+          background: #fff;
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0px 15px 20px rgba(0,0,0,0.1); 
+       
+         margin-left: 25%;
+       
+      
+        }
+    .form-group-21{
+       width: 20vw;
+       font-size: 20px;
+      /* margin-top: -4%;
+      margin-left: 5%; */ 
+      float: right;
+      margin-top: 6%;
+  
+    }
+/**css for nav bar*/
+
+/* Styling for the pagination container */
+.pagination-container {
+  /* display: flex;
+  justify-content: center; */
+  margin-top: 20px;
+  font-size: 20px;
+  float: right;
+
+}
+
+/* Styling for the pagination */
+.pagination {
+  list-style-type: none;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.uploadForm label{
-  font-weight: bold;
-  margin-top: 15px;
-  padding : 8px 20px;
-  border-radius: 20px;
-  background-color: yellowgreen;
-  box-shadow: 0px 1px 2px black;
+/* Styling for the pagination buttons */
+.pagination li {
+  margin: 0 5px;
 }
-.upload-btn{
-    width: 27%;
-    height: 4vh;
-    border-radius: 15px;
-    text-decoration: none;
-    box-shadow: 2px 1px;
-    border-color: #1b86b4;
-    background-origin: padding-box;
-    background-color: #1b86b4;
-  
-  }
+
+/* Styling for the previous and next buttons */
+.pagination li[data-page="prev"],
+.pagination li[data-page="next"] {
+  padding: 5px 10px;
+  border: 2px solid #ccc;
+  background-color:royalblue;
+  cursor: pointer;
+}
+
+/* Styling for the close appearance of the buttons */
+.pagination li[data-page="prev"] span:before,
+.pagination li[data-page="next"] span:after {
+  content: "x";
+  font-weight: bold;
+}
+
+/* Styling for the current page indicator */
+.pagination .sr-only {
+  display: none;
+}

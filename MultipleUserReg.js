@@ -1,6 +1,6 @@
 //excelsheet download
 var people = [
-    { user_id:' ', first_name: ' ', middle_name   : ' ',last_name   : ' ',email   : ' ', password   : ' ', user_type   : ' ',Parent_org:   '',Address:'',dept_work:'',contact_no:''
+    { user_id:' ', first_name: ' ', middle_name   : ' ',last_name   : ' ',email   : ' ', password   : ' ', user_type   : ' ',Parent_org:   '',dept_work:'',contact_no:''
     }
   
   ];
@@ -53,6 +53,8 @@ var people = [
           contentType: false,
           success: function(response) {
             $('#mess').text(response);
+            console.log(response);
+            alert(response);
           },
           error: function(error) {
             $('#mess').text('Error uploading file.');

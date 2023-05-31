@@ -10,8 +10,8 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> <!--icons link-->
     <!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    
-   
+
+
 
 
 
@@ -23,7 +23,7 @@
     <div class="nav-bar-height">
         <section class="sidebar">
             <section class="imageSet">
-                <img src="./img/soul_ltd.jpg" alt="" class="companyLogo">
+                <img src="./images/favicon.ico" alt="" class="companyLogo">
             </section>
             <nav class="navbar">
                 <ul>
@@ -33,55 +33,56 @@
                     </li>
                     <li>
                         <!-- Alerts -->
-                        <a href="./alert.html"><i class='bx bxs-bell' ></i></a>
+                        <a href="./alert.html"><i class='bx bxs-bell'></i></a>
                     </li>
                     <li>
                         <!-- Assets -->
-                        <a href="./asset.html"><i class='bx bxs-cube-alt' ></i></a>
+                        <a href="./asset.html"><i class='bx bxs-cube-alt'></i></a>
                     </li>
                     <li>
                         <!-- Requests -->
-                        <a href="./request.html"><i class='bx bxs-layer' ></i></a>
+                        <a href="./request.html"><i class='bx bxs-layer'></i></a>
                     </li>
-                    
+
                     <li>
                         <!-- Dashboard -->
-                        <a href="./overview.html"><i class='bx bx-table' ></i></a>
+                        <a href="./overview.html"><i class='bx bx-table'></i></a>
                     </li>
                     <li>
                         <!-- Profile -->
-                        <a href="./profile.html"><i class='bx bxs-user' ></i></a>
+                        <a href="./profile.html"><i class='bx bxs-user'></i></a>
                     </li>
-                   
+
                 </ul>
             </nav>
             <section class="navOpts">
-               
-                <button class="logoutBtn" id="logoutBtn"><i class='bx bx-log-out-circle' ></i></button>
+
+                <button class="logoutBtn" id="logoutBtn"><i class='bx bx-log-out-circle'></i></button>
             </section>
         </section>
     </div>
 
 
- 
+
 
     <!-- Modal Background and Modal -->
     <div id="modal-background">
         <!-- <div id="modal"> -->
-        <span id="close-btn">&times;</span>
+        <!-- <span id="close-btn">&times; </span> -->
         <!---Code for single and multiple request-->
         <div class="wrapper">
+            <span id="close-btn" style="font-size: 30px ; float: right;">&times; </span>
             <div class="asset-tittle">
-                <h1> ASSET REGISTRATION</h1>
+                <h1 class="title-asset"> ASSET REGISTRATION</h1>
             </div>
             <div class="title-text">
-               
+
                 <div class="title login">
                     <!-- Single Asset -->
                 </div>
                 <div class="title signup">
                     <!-- Multiple Asset -->
-                
+
                 </div>
             </div>
             <div class="form-container">
@@ -144,9 +145,11 @@
                             <label for="asset-name"><i class='bx bxs-objects-vertical-bottom' ></i>&nbsp; &nbsp;Asset Name </label>
                             <input type="text" name="assetn"  placeholder="Asset Name" id="asset-name" required>
                         </div>
-                        <div class="form-group">
-                            <label for="asset-type"><i class='bx bxs-devices' ></i>&nbsp;&nbsp; Asset Type</label>
-                            <input type="text" name="assett"  placeholder="Asset Type"   id="asset-type" required>
+                     <div class="form-group">
+                                <label for="asset-type"><i class='bx bxs-devices' ></i>&nbsp;&nbsp; Asset Type</label>
+                                    <select name="assett" id="asset-type"  required>
+                                     <option value="" selected disabled>Select asset_type</option>
+                         </select>
                         </div>
                       
                        
@@ -158,7 +161,8 @@
                       
                         <div class="form-group">
                             <label for="dname"><i class='bx bx-map-pin'></i>&nbsp;&nbsp; Department Name</label>
-                            <select name="deptn" id="dname" class="select"  required oninput="fetchData()">
+                            <!-- <select name="deptn" id="dname" class="select"  required oninput="fetchData()"> -->
+                                <select name="deptn" id="dname" class="select"  required oninput="total()">
                                 <option value="" selected disabled>Select dept_name</option>
                             </select>
                           
@@ -233,44 +237,204 @@
     <!-- </div> -->
 
 
+    <!-- Advance search -->
+    <div id="modal-background-advance-search" style="display: none;">
+        <div class="wrapper-advance-search">
+            <span id="close-btn-advance-search" style="float: right; font-size: 30px;">&times;</span>
+            <div class="form-container-adv">
+                <div class="form-inner-adv">
+                    <form action="#" class="login" onsubmit="">
+                        <h1>Advance Search</h1>
+                        <div class="single-container">
 
 
-    <!--Searching -->
-    <!-- <input type="text" id="searchInput" placeholder="Search..." style="margin-top: -30%;">
-    <button type="button" onclick="searchTable()">Search</button> -->
 
+                            <div class="form-group">
+                                <label for="asset-type"><i class='bx bxs-devices'></i>&nbsp;&nbsp; Asset Type</label>
+                                <input type="text" name="asset-name" placeholder="Asset Type" id="" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="asset-name"><i class='bx bxs-objects-vertical-bottom'></i>&nbsp; &nbsp;Asset
+                                    Name</label>
+                                <input type="text" name="asset-name" placeholder="Asset Name" id="" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="department-tagid"><i class='bx bxs-business'></i>&nbsp; &nbsp;Department
+                                    Name</label>
+                                <input type="text" name="department-tagid" placeholder="Department Id" id="" required
+                                    disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="employee-name"><i class='bx bxs-business'></i>&nbsp; &nbsp;Employee
+                                    Name</label>
+                                <input type="text" name="employee-name" placeholder="Employee Name" id="" required
+                                    disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="employee-id"><i class='bx bxs-business'></i>&nbsp; &nbsp;Employee No</label>
+                                <input type="text" name="employee-id" placeholder="Employee No" id="" required disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="asset-location"><i class='bx bx-map-pin'></i>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                                    Location</label>
+                                <input type="text" name="asset-location" placeholder="Asset Location" id="" required>
+                            </div>
+                            <div class="form-group-11">
+                                <input type="submit" class="search" id="save-btn"
+                                    style="width: 10vw; height: 4vh; margin-left: 30%;" value="Search">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!---   Poppup for Edit Aseet Reg  ✈🤞✌-->
+    <div id="modal-background-edit-asset" style="display: none;">
+        <div class="wrapper-edit">
+            <span id="close-btn-edit-asset" style="float: right; font-size: 30px;">&times;</span>
+            <div class="form-container">
+                <div class="form-inner">
+                    <form action="#" class="login" onsubmit="">
+                        <h1>Edit Asset Registration Form</h1>
+                        <div class="single-container">
+
+                            <div class="form-group">
+                                <label for="asset-id"><i class='bx bxs-devices'></i>&nbsp;&nbsp; Asset Id</label>
+                                <input type="text" name="asset-id" placeholder="Asset Id" id="asset-id-edit-asset"
+                                    required disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="asset-type"><i class='bx bxs-devices'></i>&nbsp;&nbsp; Asset Type</label>
+                                <input type="text" name="asset-name" placeholder="Asset Type" id="asset-type-edit-asset"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="asset-name"><i class='bx bxs-objects-vertical-bottom'></i>&nbsp; &nbsp;Asset
+                                    Name</label>
+                                <input type="text" name="asset-name" placeholder="Asset Name" id="asset-name-edit-asset"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="department-tagid"><i class='bx bxs-business'></i>&nbsp; &nbsp;Department
+                                    Name</label>
+                                <input type="text" name="department-tagid" placeholder="Department Id"
+                                    id="department-name-edit-asset" required disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="employee-name"><i class='bx bxs-business'></i>&nbsp; &nbsp;Employee
+                                    Name</label>
+                                <input type="text" name="employee-name" placeholder="Employee Name"
+                                    id="employee-name-edit-asset" required disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="employee-id"><i class='bx bxs-business'></i>&nbsp; &nbsp;Employee No</label>
+                                <input type="text" name="employee-id" placeholder="Employee No"
+                                    id="employee-id-edit-asset" required disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="asset-location"><i class='bx bx-map-pin'></i>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                                    Location</label>
+                                <input type="text" name="asset-location" placeholder="Asset Location"
+                                    id="asset-location-edit-asset" required>
+                            </div>
+                            <div class="form-group-11">
+                                <input type="submit" class="save" id="save-btn"
+                                    style="width: 10vw; height: 4vh; margin-left: 30%;" value="Save">
+                                <div class="myForm">
+                                    <input type="submit" id="cancel-btn" class="cancel"
+                                        style="width: 10vw; height: 4vh;" value="Cancel">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
 
 
     <!--- Table of overview -->
     <div class="main-wrapper">
-
-      
-        
-       
         <main role="main">
 
 
             <div class="table-card">
-             <div class="ref-btn">
-                <button id="refresh-btn" style="margin-top: 5%; color: aliceblue; background-color:black;"><i class='bx bx-refresh' ></i></i></button>
-             </div>
-              
+                <div class="ref-btn">
+                    <button id="refresh-btn" style="margin-top: 5%; color: aliceblue; background-color:black;"><i
+                            class='bx bx-refresh'></i></i></button>
+                </div>
+
                 <div class="search1">
-                    
-                   
-                      <input type="text" id="searchInput" placeholder="Search here ...........">
-                   
-                    <button type="button" onclick="searchTable()"><i class='bx bx-search-alt-2' ></i>Search</button>
-                   
-                    
-                  
+
+
+                    <input type="text" id="searchInput" placeholder="Search here ..........." style="margin-left: 22%;">
+
+                    <button type="button" onclick="searchTable()"><i class='bx bx-search-alt-2'></i>Search</button>
+       
+
                     <div class="btn">
-                       
-                        <button id="open-btn"><i class='bx bxs-add-to-queue' ></i>
+
+                        <button id="open-btn"><i class='bx bxs-add-to-queue'></i>
                             Add New Asset
                         </button>
+                        <div class="advance-search">
+                            <button type="button" id="adv_open-btn"><i class='bx bxs-file-find'></i> Advance
+                                search</button>
+                        </div>
+                    </div>
 
-                       
+                    <div class="form-group-21"> 	<!--		Show Numbers Of Rows 		-->
+                        <h7>Select Number Of Rows</h7>
+                        <select class="form-control" name="state" id="maxRows">
+                            <option value="5000">Show ALL Rows</option>
+                         
+                            <option value="50" selected>50</option>
+                            <option value="100">100</option>
+                            <option value="150">150</option>
+                            <option value="200">200</option>
+                            <option value="500">500</option>
+                            <option value="700">700</option>
+                            <option value="1000">1000</option>
+                        </select>
                     </div>
 
                     <div class="container">
@@ -279,7 +443,7 @@
                         <div class="table-scroll">
                             <div class="table-wrapper">
                                 <table class="sticky-table" id="example">
-                                
+
                                     <thead class="table-head" title="Click to sort">
                                         <tr class="table-row">
                                             <th class="col-head" scope="col">Asset Id</th>
@@ -294,114 +458,131 @@
                                             <th class="col-head" scope="col">Update</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-body">
-                                        <!-- <tr class="table-row">
-                                           
-                                            <td class="cell">1</td>
 
-                                            <td class="cell">19%</td>
-                                            <td class="cell"></td>
-                                            <td class="cell">fqef</td>
-                                            <td class="cell">62%</td>
-                                            <td class="cell"></td>
-                                            <td class="cell">farm</td>
-                                        </tr>
-                                        -->
-                                      
-                                     
+
+                                    <tbody class="table-body">
+
                                     </tbody>
-                                  
                                 </table>
+                                
                             </div> <!-- /.table-scroll -->
                         </div> <!-- /.table-wrapoer -->
+                       <!--   next page pagination-->
+                       <div class='pagination-container' >
+                        <nav>
+                          <ul class="pagination">
+                            <li data-page="prev" >
+                                <span> < <span class="sr-only">(current)</span></span>
+                            </li>
+                           <!--	Here the JS Function Will Add the Rows -->
+                            <li data-page="next" id="prev">
+                                <span> > <span class="sr-only">(current)</span></span>
+                            </li>
+                          </ul>
+                        </nav>
+                    </div>
+
+
+
+
                     </div> <!-- /.table-card -->
                 </div> <!-- /.container -->
         </main>
     </div> <!-- /.main-container -->
-   <!---   Edit the   table-->
 
-   <!--   Date 26/05/2023-->
-    <script >
-        function editRow(button) {
-      var row = button.parentNode.parentNode;    ///  or you can use  var row = button.closest("tr"); // Find the closest parent <tr> element 
-      var cells = row.getElementsByTagName("td");
-    
-      for (var i = 0; i < cells.length - 1; i++) {
-        var cell = cells[i];
-        cell.contentEditable = "true";
-        cell.style.backgroundColor = "#FFFFCC";
-      }
-    
-      button.innerHTML = "Save";
-      button.onclick = function() { saveRow(this); };
-    }
-    
-    function saveRow(button) {
-      var row = button.parentNode.parentNode;
-      var cells = row.getElementsByTagName("td");
-    
-      for (var i = 0; i < cells.length - 1; i++) {
-        var cell = cells[i];
-        cell.contentEditable = "false";
-        cell.style.backgroundColor = "";
-      }
-    
-      button.innerHTML = "Edit";
-      button.onclick = function() { editRow(this); };
-    }
-    
-      </script>
 
-   
-   <!--when search-bar is empty then autorefresh the web page/table-->
- 
+
+
+
+    <!---   Edit table  click on cancel button and cancel the page-->
+    <script>
+        const cancelButton = document.getElementById("cancel-btn");
+
+        cancelButton.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // Redirect or perform any other desired action when canceling
+            window.location.href = "overview.html"; // Replace with the appropriate URL or action
+        });
+    </script>
+
+
+
+    <!--when search-bar is empty then autorefresh the web page/table-->
+
 
     <!---Script for seaching the table data-->
     <script>
-  var pageSize = 100; // Number of rows to display per page
-var currentPage = 1; // Current page number
+        var pageSize = 100; // Number of rows to display per page
+        var currentPage = 1; // Current page number
 
-function searchTable() {
-    var input, filter, table, tbody, tr, td, i, j, txtValue, found;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementsByTagName("table")[0];
-    tbody = table.getElementsByTagName("tbody")[0];
-    tr = tbody.getElementsByTagName("tr");
+        function searchTable() {
+            var input, filter, table, tbody, tr, td, i, j, txtValue, found;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementsByTagName("table")[0];
+            tbody = table.getElementsByTagName("tbody")[0];
+            tr = tbody.getElementsByTagName("tr");
 
-    var startIndex = (currentPage - 1) * pageSize;
-    var endIndex = startIndex + pageSize;
+            var startIndex = (currentPage - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
 
-    for (i = 0; i < tr.length; i++) {
-        if (i >= startIndex && i < endIndex) {
-            found = false;
-            for (j = 0; j < tr[i].cells.length; j++) {
-                td = tr[i].cells[j];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        found = true;
-                        break;
+            var dataFound = false; // Flag to track if data is found
+
+            for (i = 0; i < tr.length; i++) {
+                if (i >= startIndex && i < endIndex) {
+                    found = false;
+                    for (j = 0; j < tr[i].cells.length; j++) {
+                        td = tr[i].cells[j];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                found = true;
+                                break;
+                            }
+                        }
                     }
+                    if (found) {
+                        tr[i].style.display = "";
+                        dataFound = true; // Set flag to true if data is found
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                } else {
+                    tr[i].style.display = "none";
                 }
             }
-            if (found) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+
+            // Display message if data is not found
+            var messageRow = document.getElementById("message-row");
+            if (!dataFound) {
+                if (messageRow) {
+                    messageRow.style.display = ""; // Show the message row
+                } else {
+                    // Create the message row and append it to the tbody
+                    var messageCell = document.createElement("td");
+                    messageCell.setAttribute("colspan", tr[0].cells.length);
+                    messageCell.textContent = "Data  is  not Available ";
+
+                    messageRow = document.createElement("tr");
+                    messageRow.setAttribute("id", "message-row");
+                    messageRow.appendChild(messageCell);
+
+                    tbody.appendChild(messageRow);
+                }
+            } else if (messageRow) {
+                messageRow.style.display = "none"; // Hide the message row if data is found
             }
-        } else {
-            tr[i].style.display = "none";
         }
-    }
-}
 
-function goToPage(page) {
-    currentPage = page;
-    searchTable();
-}
+        function goToPage(page) {
+            currentPage = page;
+            searchTable();
+        }
 
 
+
+////data is not found show
 
     </script>
 
@@ -418,13 +599,38 @@ function goToPage(page) {
 
 
 
-    <!--Script for Reg /login page-->
 
 
+    <!--  Popup for adavance search -->
 
 
+    <script>
+        // select the open-btn button
+        let adv_openBtn = document.getElementById('adv_open-btn');
+        // select the modal-background
+        let adv_modalBackground = document.getElementById('modal-background-advance-search');
+        // select the close-btn 
+        let adv_closeBtn = document.getElementById('close-btn-advance-search');
 
+        // shows the modal when the user clicks open-btn
+        adv_openBtn.addEventListener('click', function () {
+            adv_modalBackground.style.display = 'block';
+        });
 
+        // hides the modal when the user clicks close-btn
+        adv_closeBtn.addEventListener('click', function () {
+            adv_modalBackground.style.display = 'none';
+        });
+
+        // hides the modal when the user clicks outside the modal
+        window.addEventListener('click', function (event) {
+            // check if the event happened on the modal-background
+            if (event.target === adv_modalBackground) {
+                // hides the modal
+                adv_modalBackground.style.display = 'none';
+            }
+        });
+    </script>
 
 
 
@@ -478,20 +684,20 @@ function goToPage(page) {
             return false;
         });
     </script>
-  <!--Upload the file-->
+    <!--Upload the file-->
     <!-- <script>
-        const dropArea = document.querySelector(".drop-box-csv") ,
-button=dropArea.querySelector("button") ,
-dragText=dropArea.querySelector("header"),
-input=dropArea.querySelector("input");
-let file;
-var filename;
-button.onclick=()=>{
-    input.click();
-};
-input.addEventListener("change", function(e){
-    var fileName=e.target.files[0].name;
-    let filedata = `
+        const dropArea = document.querySelector(".drop-box-csv"),
+            button = dropArea.querySelector("button"),
+            dragText = dropArea.querySelector("header"),
+            input = dropArea.querySelector("input");
+        let file;
+        var filename;
+        button.onclick = () => {
+            input.click();
+        };
+        input.addEventListener("change", function (e) {
+            var fileName = e.target.files[0].name;
+            let filedata = `
     <form action=method="post">
         <div class="from">
             <h4>${fileName}</h4>
@@ -500,65 +706,77 @@ input.addEventListener("change", function(e){
             </from>`;
             dropArea.innerHTML = filedata;
 
-});
+        });
 
     </script> -->
 
 
-<!---Download csv file   25/05/2023-->
-   <script>
-    var people = [
-    { Name:'     ' , Lastname :' ', Location: ' ', address: ' ', EmployeeId: ' ', Email_ID: ' ', Contact_Number: ' ' }
+    <!---Download csv file   25/05/2023-->
+    <script>
+            var people = [
+    { asset_price:' ' , asset_id :' ', emp_no: ' ', tag_uuid: ' ', asset_type: ' ',asset_name: ' ',dept_id:' ' }
     
   ];
 
-  
-  function createCSV(array){
-    var keys = Object.keys(array[0]); //Collects Table Headers
-    
-    var result = ''; //CSV Contents
-    result += keys.join(','); //Comma Seperates Headers
-    result += '\n'; //New Row
-    
-    array.forEach(function(item){ //Goes Through Each Array Object
-      keys.forEach(function(key){//Goes Through Each Object value
-        result += item[key] + ','; //Comma Seperates Each Key Value in a Row
-      })
-      result += '\n';//Creates New Row
-    })
-    
-    return result;
-  }
-  
-  
-  function downloadCSV(array) {
-    csv = 'data:text/csv;charset=utf-8,' + createCSV(array); //Creates CSV File Format
-    excel = encodeURI(csv); //Links to CSV 
-  
-    link = document.createElement('a');
-    link.setAttribute('href', excel); //Links to CSV File 
-    link.setAttribute('download', 'test.csv'); //Filename that CSV is saved as
-    link.click();
-  }
-   </script>
+
+        function createCSV(array) {
+            var keys = Object.keys(array[0]); //Collects Table Headers
+
+            var result = ''; //CSV Contents
+            result += keys.join(','); //Comma Seperates Headers
+            result += '\n'; //New Row
+
+            array.forEach(function (item) { //Goes Through Each Array Object
+                keys.forEach(function (key) {//Goes Through Each Object value
+                    result += item[key] + ','; //Comma Seperates Each Key Value in a Row
+                })
+                result += '\n';//Creates New Row
+            })
+
+            return result;
+        }
 
 
-<!--Refresh the table   when click on refresh button  -->
-<script>
-  
-  $(document).ready(function() {
+        function downloadCSV(array) {
+            csv = 'data:text/csv;charset=utf-8,' + createCSV(array); //Creates CSV File Format
+            excel = encodeURI(csv); //Links to CSV 
 
-function RefreshPage() {
-    location.reload();
-}
+            link = document.createElement('a');
+            link.setAttribute('href', excel); //Links to CSV File 
+            link.setAttribute('download', 'test.csv'); //Filename that CSV is saved as
+            link.click();
+        }
+    </script>
 
-$("#refresh-btn").on("click", RefreshPage);
 
-});
-   
-</script>
+    <!--Refresh the table   when click on refresh button  -->
+    <script>
 
-   <script src="overview.js">  </script>
+        $(document).ready(function () {
+
+            function RefreshPage() {
+                location.reload();
+            }
+
+            $("#refresh-btn").on("click", RefreshPage);
+
+        });
+
+
+
+
+    </script>
+    </script>
+
+    <script>
+
+
+    </script>
+
+    <script src="overview.js">  </script>
+
+    <script src="app.js"></script>
+    <script src="ovreviewcsv.js"></script>
 </body>
 
 </html>

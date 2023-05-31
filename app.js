@@ -246,152 +246,211 @@ app.get('/assetSort', (req, res) => {
         })
     
     })   
- 
-    const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-          cb(null, 'uploads/');
-        },
-        filename: function (req, file, cb) {
-          cb(null, file.originalname);
+ //satyam vivek works
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+     filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+const upload = multer({ storage });
+      
+      
+//multiple asset reg
+app.post('/assetupload', upload.single('uploadFile'), function (req, res) {
+    const filePath = req.file.path;
+    let responseStr = '';
+    let Asdata1 = {};
+    let Asdata2={};
+    let taguuid = /^SA\/[a-z]{3}\/[a-z]\d\/\d{4}$/;
+    let deptid = /^(?:[1-35-9]|1[0-8])$/;
+    let empno = /^\d{6}$/;
+  
+  try {
+    fs.createReadStream(filePath)
+      .pipe(csvParser())
+      .on('data', function (row) {
+  
+        // console.log(row);
+        Asdata1 = Object.assign({}, row);
+        Asdata2 = Object.assign({}, row);
+  
+        if (!taguuid.test(row.tag_uuid)){
+          console.log('INVALID::::' + row.tag_uuid);
+          responseStr += `Invalid Tag uuid :::: ${row.tag_uuid} \n`;
+        }
+        if (!deptid.test(row.dept_id)){
+          console.log('INVALID::::' + row.dept_id);
+          responseStr += `Invalid dept id :::: ${row.dept_id} \n`;
+        }
+  
+        if (!empno.test(row.emp_no)){
+          console.log('INVALID::::' + row.emp_no);
+          responseStr += `Invalid emp no :::: ${row.emp_no}\n`;
+        }
+        console.log('db insertion data' + Asdata2); 
+      })
+      .on('end', function () {
+        // console.log(Asdata1);
+        if (responseStr)
+          res.send((responseStr));
+        else {
+          res.send('file uploaded succesfully');
+          console.log('file uploaded succesfully');
+          // insertDataToAsDatabase1(Asdata1);
+          // insertDataToAsDatabase1(Asdata2);
+        }
+        
+      })
+   } catch (err) {
+    res.status(400).json(err);
+  }
+  
+  });
+  
+  
+  
+  function insertDataToAsDatabase1(Asdata1) {
+  
+    console.log(Asdata1);
+    mssql.query(`INSERT INTO assets (asset_price,asset_id,emp_no,tag_uuid,asset_type,asset_name,dept_id) VALUES ( '${Asdata1.asset_price}','${Asdata1.asset_id
+    }','${Asdata1.emp_no
+    }','${Asdata1.tag_uuid }','${Asdata1.asset_type}', '${Asdata1.asset_name}','${Asdata1.dept_id}')`, function (err) {
+      if (err) {
+        console.error('Error inserting data into the database1: ', err);
+      }
+    });
+  }
+  
+  function insertDataToAsDatabase2(Asdata2){
+    let tagt = 'RFID';
+    mssql.query(`INSERT INTO tags (tag_type,tag_uuid) VALUES ( '${Asdata2.tagt}','${Asdata2.tag_uuid}')`, function (err) {
+        if (err) {
+          console.error('Error inserting data into the database1: ', err);
         }
       });
-      const upload = multer({ storage });
+  }
       
       
-      //multiple asset reg
-      app.post('/assetupload', upload.single('uploadFile'), function (req, res) {
-        const filePath = req.file.path;
-       let taguuid=/^SA\/[a-z]{3}\/[a-z]\d\/\d{4}$/;
-       let deptid=/^(?:[1-35-9]|1[0-8])$/;
-       let empno=/^\d{6}$/;
-       let assetid=/^\d{12}$/;
-      
-        fs.createReadStream(filePath)
-          .pipe(csvParser())
-          .on('data', function (row) {
-            console.log(row);
-            let Asdata1 = Object.assign({}, row);
-            // let Asdata2 = Object.assign({}, row);
-            if(taguuid.test(row.tag_uuid) && deptid.test(row.dept_id) && empno.test(row.emp_no) && (row.asset_type=='Medical Equipments' ||row.asset_type=='Land & Land Developments'||row.asset_type=='Buildings'||row.asset_type=='Furniture, Fixture & Office Equipments' ||row.asset_type=='Motor Vehicles'||row.asset_type=='Crockery and Utensils'||row.asset_type=='Books and Library' ||row.asset_type=='Electrical, Electronics Equipments'||row.asset_type=='Machinery & Lab Equipments'||row.asset_type=='Photo Copier' ||row.asset_type=='Audio & Visual Equipment'||row.asset_type=='Telephone & EPABX'||row.asset_type=='Transformer & Generator' ||row.asset_type=='Laptop'||row.asset_type=='Computer Related'||row.asset_type=='Computer Software' ||row.asset_type=='Air Conditioner'||row.asset_type=='Solar Power Systems'||row.asset_type=='Solar Water Heating System' ||row.asset_type=='Sculpture Garden'||row.asset_type=='Central Medical Gas'||row.asset_type=='Electrical, Electronics Equipments for R&D' ||row.asset_type=='Machinery & Lab Equipments for R&D'||row.asset_type=='Furniture, Fixture & Office Equipments for R&D'||row.asset_type=='Surveylliance Equipment' ||row.asset_type=='Sports & Musical Equipment'||row.asset_type=='Computer Related for R&D'||row.asset_type=='Smart Class Room'||row.asset_type=='Asset Under Construction') ){
-              console.log('successful::::'+row.tag_uuid);
-              console.log('successful::::'+row.dept_id);
-              console.log('successful::::'+row.emp_no);
-              console.log('successful::::'+row.asset_type);
-              console.log('successful::::'+row.asset_id);
-                // insertDataToAsDatabase1(Asdata1);
-                // res.send('file uploaded successfully');
-            }
-            else{
-              console.log('invalid data')
-              res.send('invalid data');
-            }
-      
+//multiple user reg
+app.post('/userupload', upload.single('uploadFile'), function (req, res) {
+    const filePath = req.file.path;
+    let emailPattern= /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let phonePattern= /^[1-9]\d{9}$/;
+    let useridPattern= /^\d{6}$/;
+  
+    let responseStr = '';
+    let data1 = {};
+    let data2={};
+  
+    try{
+      fs.createReadStream(filePath)
+      .pipe(csvParser())
+      .on('data', function (row) {
+       // console.log(row);
+         data1 = Object.assign({}, row);
+         data2 = Object.assign({}, row);
+        //  console.log(data1);
+   
+        if(!emailPattern.test(row.email)){
+         console.log('INVALID::::'+row.email);
+          responseStr += `Invalid E-mail :::: ${row.email}\n`;
+        }
+  
+        if(!phonePattern.test(row.contact_no)){
+          console.log('INVALID::::'+row.contact_no);
+          responseStr += `Invalid Contact Number :::: ${row.contact_no} \n`;
+        }
+  
+        if(row.user_type != 'Admin' && row.user_type != 'user'){
+          console.log('INVALID::::'+row.user_type);
+          responseStr += `Invalid user_type :::: ${row.user_type} \n`;    
+        }
+  
+        if(!useridPattern.test(row.user_id)){
+          console.log('INVALID::::'+row.user_id);
+          responseStr += `Invalid user_id :::: ${row.user_id} \n`;
+        }
+        if(row.first_name == null  || row.last_name == null){
+          console.log('INVALID::::'+row.first_name);
+          console.log('INVALID::::'+row.last_name);
+          responseStr += `first name :::: ${row.first_name} and lastname :::: ${row.last_name} are mandatory \n`;
           
-          })
-          .on('end', function () {
-            res.sendStatus(200);
-          })
-          .on('error', function (error) {
-            res.sendStatus(500);
-          });
-      });
-      
-      
-      
-      function insertDataToAsDatabase1(Asdata1) {
-        console.log(Asdata1);
-        sql.query(`INSERT INTO assets (asset_price,asset_id,emp_no,tag_uuid,asset_type,asset_name,dept_id) VALUES ( '${Asdata1.asset_price}','${Asdata1.asset_id
-        }','${Asdata1.emp_no
-        }','${Asdata1.tag_uuid }','${Asdata1.asset_type}', '${Asdata1.asset_name}','${Asdata1.dept_id}')`, function (err) {
-          if (err) {
-            console.error('Error inserting data into the database1: ', err);
-          }
-        });
+        }
+        if(row.Parent_org!='KIIT'){
+          console.log('INVALID::::'+row.Parent_org);
+          responseStr += `Invalid Parent_Org :::: ${row.Parent_org}\n`;
+        }
+        console.log('db insertion data'+data2);
+      })
+       
+      .on('end', function () {      
+        if(responseStr)
+        res.send((responseStr));
+        else{
+          res.send('file uploaded succesfully');
+          console.log('file uploaded succesfully');
+          // insertDataToDatabase1(data1);
+          // insertDataToDatabase1(data2);
+          // console.log(data1);
+          // console.log(data2);
+        }
+      })               
+      }catch(err){
+      res.status(400).json(err);
+    }
+    // res.send('uploaded succesfully');
+  });
+  
+  
+  
+  function insertDataToDatabase1(data1) {
+    mssql.query(`INSERT INTO Users (user_id,user_name,email,password,user_type,Parent_org) VALUES ('${data1.user_id}', '${data1.first_name} ${data1.middle_name} ${data1.last_name}', '${data1.email}','${data1.password}','${data1.user_type}','${data1.Parent_org}')`, function (err) {
+      if (err) {
+        console.error('Error inserting data into the database1: ', err);
       }
-      
-      
-      //multiple user reg
-      
-      app.post('/userupload', upload.single('uploadFile'), function (req, res) {
-        const filePath = req.file.path;
-        let emailPattern= /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        let phonePattern= /^[1-9]\d{9}$/;
-        let useridPattern= /^\d{6}$/;
-        
-        fs.createReadStream(filePath)
-          .pipe(csvParser())
-          .on('data', function (row) {
-           // console.log(row);
-            let data1 = Object.assign({}, row);
-            let data2 = Object.assign({}, row);
-      
-            // for(let i=0; i<Object.keys(row).length; i++){
-      
-            // }
-            if(emailPattern.test(row.email) && phonePattern.test(row.contact_no) && (row.user_type == 'Admin' || row.user_type == 'user') && useridPattern.test(row.user_id) && row.first_name!=''  && row.last_name!='' && row.Parent_org=='KIIT' && (row.dept_work=='ICT CELL KIIT CORE'||row.dept_work=='COMMON ELECTRONICS ENGG'||row.dept_work=='MECHANICAL'||row.dept_work=='BIOTECH'||row.dept_work=='CIVIL'||row.dept_work=='APPLIED SCIENCE'||row.dept_work=='AUDITORIUM'||row.dept_work=='FINANCIAL AND HUMAN SCIENCE'||row.dept_work=='SCHOOL OF HUMANITIES'||row.dept_work=='COMPUTER SCIENCE-1'||row.dept_work=='COMPUTER SCIENCE-2'||row.dept_work=='ELECTRICAL'||row.dept_work=='KIIT SCHOOL OF RURAL MANAGEMENT'||row.dept_work=='ANNEX BUILDING'||row.dept_work=='LAW'||row.dept_work=='KIIT SCHOOL OF ACTIVITY CENTER'||row.dept_work=='KIIT SCHOOL OF MANAGEMENT')
-           ){
-              console.log('successful::::'+row.email);
-              console.log('successful::::'+row.contact_no);
-              console.log('successful::::'+row.user_type);
-              console.log('successful::::'+row.user_id);
-              console.log('successful::::'+row.first_name);
-              console.log('successful::::'+row.middle_name);
-              console.log('successful::::'+row.last_name);
-              console.log('successful::::'+row.Parent_org);
-              console.log('successful::::'+row.dept_work);
-            //   res.send('file uploaded successfully');
-            //   insertDataToDatabase1(data1);
-            //   insertDataToDatabase2(data2);
-      
-            }else{
-              //res.sendStatus(500);
-              res.send('Invalid Data');
-            }
-           
-          })
-          .on('end', function () {
-            res.sendStatus(200);
-          })
-          .on('error', function (error) {
-            res.sendStatus(500).json('error');
-          });
-      });
-      
-      
-      
-      function insertDataToDatabase1(data1) {
-        mssql.query(`INSERT INTO Users (user_id,user_name,email,password,user_type,Parent_org,Address) VALUES ('${data1.user_id}', '${data1.first_name} ${data1.middle_name} ${data1.last_name}', '${data1.email}','${data1.password}','${data1.user_type}','${data1.Parent_org}','${data1.Address}')`, function (err) {
-          if (err) {
-            console.error('Error inserting data into the database1: ', err);
-          }
-        });
+    });
+  }
+  
+  
+  function insertDataToDatabase2(data2) {
+    mssql.query(`INSERT INTO Employees(first_name,middle_name,last_name,dept_work,contact_no,Parent_org,emp_no) VALUES ('${data2.first_name}', '${data2.middle_name}', '${data2.last_name}','${data2.dept_work}','${data2.contact_no}','${data2.Parent_org}','${data2.user_id}')`, function (err) {
+      if (err) {
+        console.error('Error inserting data into the database2: ', err);
       }
-      
-      function insertDataToDatabase2(data2) {
-        mssql.query(`INSERT INTO Employees(first_name,middle_name,last_name,dept_work,contact_no,Parent_org,emp_no) VALUES ('${data2.first_name}', '${data2.middle_name}', '${data2.last_name}','${data2.dept_work}','${data2.contact_no}','${data2.Parent_org}','${data2.user_id}')`, function (err) {
-          if (err) {
-            console.error('Error inserting data into the database2: ', err);
-          }
-        });
-      }   
+    });
+  }
 
+//satyam vivek work end  
 
 
 ///single Asset Reg    
 app.get('/fetchdname',(req,res)=>{
-    let query=`select dept_name from asset.dbo.department`;
+    let query=`select dept_name from asset.dbo.department order by 1`;
+    let query1=`select distinct s.asset_type from asset.dbo.assets s where s.asset_type is not null and s.asset_type not in ('') order by 1 `
+
     let queryResult=mssql.query(query,(err,result)=>{
         if(err) throw err;
         else{
             // res.sendFile('index.html', { root: __dirname+ "/public" })
+            let queryResult1=mssql.query(query1,(err,result1)=>{
+                if(err) throw err;
             const message={
               
                 dept_name:result.recordset
                           
             }
-            res.send({message: message});
             console.log(message)
-        }
+            const answer={
+                asset_type:result1.recordset
+            }
+            res.send({message: message,answer:answer});
+            console.log(answer)
+        })
+    }
+        
     })
     
     })
@@ -463,12 +522,12 @@ app.post('/assetreg',(req,res)=>{
 
                         if(err) throw err;
 
-                    console.log('Insertion has been done to tags and assets');
-                    res.send({
-                        code: 'Registration_done_Successfully',
-                        response:"Registration done Successfully"
-                    })
-                   } )
+                        console.log('Insertion has been done to tags and assets');
+                        res.send({
+                            code: 'Insertion has been done to tags and assets',
+                            response:'Registration has been done to tags and assets'
+                        })
+                    } )
                 }                  
                       
             })
@@ -484,8 +543,8 @@ app.post('/assetreg',(req,res)=>{
 
                  console.log('Insertion has been done to tags');
                  res.send({
-                    code: "Doesn't_exist",
-                    response: "Asset doesn't exist"
+                    code: 'Insertion has been done to tags',
+                    response: 'Registration has been done to tags'
                    });
 
                 }      
@@ -498,8 +557,6 @@ app.post('/assetreg',(req,res)=>{
        })
 
         }
-
-
         else{
             let queryResult1=mssql.query(query1,(err,result1)=>{  
 
@@ -511,24 +568,20 @@ app.post('/assetreg',(req,res)=>{
                         if(err) throw err;
                              
                         else{
-                            console.log('Insertion has been done to assets ')
+                            console.log('Insertion has been done to assets');
+                            res.send({response: 'Registration has been done to assets'});
                         }
-                        
-
-
-
         })
     }
                 else{
                     console.log('This asset_id with the tag_id is already present')
-
+                    res.send({response:'This asset_id with the tag_id is already present'});
                     }
-    
                 }
                 )
             }
         })
-    })  
+    }) 
 
 
 
