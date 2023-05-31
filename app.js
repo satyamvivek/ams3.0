@@ -428,9 +428,7 @@ app.post('/userupload', upload.single('uploadFile'), function (req, res) {
 
 ///single Asset Reg    
 app.get('/fetchdname',(req,res)=>{
-    let query=`select dept_name from asset.dbo.department order by 1`;
-    let query1=`select distinct s.asset_type from asset.dbo.assets s where s.asset_type is not null and s.asset_type not in ('') order by 1 `
-
+    let query=`select dept_name from asset.dbo.department`;
     let queryResult=mssql.query(query,(err,result)=>{
         if(err) throw err;
         else{
@@ -442,15 +440,9 @@ app.get('/fetchdname',(req,res)=>{
                 dept_name:result.recordset
                           
             }
+            res.send({message: message});
             console.log(message)
-            const answer={
-                asset_type:result1.recordset
-            }
-            res.send({message: message,answer:answer});
-            console.log(answer)
-        })
-    }
-        
+        }
     })
     
     })
