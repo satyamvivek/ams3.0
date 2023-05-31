@@ -380,18 +380,26 @@ app.get('/assetSort', (req, res) => {
 ///single Asset Reg    
 app.get('/fetchdname',(req,res)=>{
     let query=`select dept_name from asset.dbo.department`;
+    let query1=`select distinct asset_type from asset.dbo.assets a`
     let queryResult=mssql.query(query,(err,result)=>{
         if(err) throw err;
         else{
             // res.sendFile('index.html', { root: __dirname+ "/public" })
+            let queryResult1=mssql.query(query1,(err,result1)=>{
+                if(err) throw err;
             const message={
               
                 dept_name:result.recordset
                           
             }
-            res.send({message: message});
+            const answer={
+                asset_type:result1.recordset
+            }
+            res.send({message: message,answer:answer});
             console.log(message)
-        }
+            console.log(answer)
+        })
+    }
     })
     
     })

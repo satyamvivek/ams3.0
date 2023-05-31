@@ -54,26 +54,56 @@ $(document).ready(function() {
   });
 
 
+
 //single asset Reg form
 fetch('http://localhost:3000/fetchdname')
 .then(res => res.json())
 .then(data => {
-
-    const { message} = data
+     dept_nm=data;
+     console.log(dept_nm)
+    const { message,answer} = data
     const dept_name_list = message.dept_name.map((dept) => {
       return dept.dept_name;
     });
+    const asset_type_list = answer.asset_type.map((asset) => {
+      return asset.asset_type;
+    });
     console.log(dept_name_list);
+    console.log(asset_type_list);
     var selectElement = document.getElementById('dname');
 
     dept_name_list.forEach(element => {
       $('#dname')[0].appendChild(new Option(element, element, false, false))
+    });
+
+    asset_type_list.forEach(element => {
+      $('#asset-type')[0].appendChild(new Option(element, element, false, false))
     });
     //$('#dname').val(message.dept_name);
 
     
 })
 .catch(err => console.error(err))
+// for tag_uuid branch wise automation
+function updateField() {
+  var branch = document.getElementById("dname").value;
+  var field = document.getElementById("tag_uuid");
+  
+  if (branch.trim() === '') {
+    alert("department field is mandatory.");
+    return;
+  }
+  
+  field.value = "SA/" + branch.toUpperCase() +"/xy"+ "/1009";
+  field.disabled = false;
+  field.addEventListener('input', function() {
+    var parts = field.value.split('/');
+    parts[1] = 'CSE';
+    field.value = parts.join('/');
+  });
+}
+
+
 
   function fetchData(){
     var dn=document.getElementById('dname').value
@@ -93,6 +123,12 @@ fetch('http://localhost:3000/fetchdname')
     })
     .catch(error=> console.error(error));
   }
+  function total(){
+    fetchData();
+    updateField();
+  }
+
+
 
 
   // $(document).ready(function(){
