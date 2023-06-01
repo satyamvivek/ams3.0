@@ -1259,3 +1259,12 @@ body {
     background-color: #1b86b4;
   
   }
+
+/* checking table style*/
+
+   input[type="text"],select{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 10px;
+  }
