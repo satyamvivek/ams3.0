@@ -217,3 +217,104 @@ $(document).ready(function () {
     }
   });
 });
+
+
+
+
+/*Checking js file for table */
+
+document.addEventListener("DOMContentLoaded", function() {
+  var filterAssetIdInput = document.getElementById("filter-asset-id");
+  var filterAssetTypeSelect = document.getElementById("filter-asset-type");
+  var filterAssetNameSelect = document.getElementById("filter-asset-name");
+  var filterDeptNameSelect = document.getElementById("filter-dept-name");
+  var filterEmpNameInput = document.getElementById("filter-emp-name");
+  var filterEmpNoInput = document.getElementById("filter-emp-no");
+  var filterLocationNameSelect = document.getElementById("filter-location-name");
+
+  filterAssetIdInput.addEventListener("input", filterTable);
+  filterAssetTypeSelect.addEventListener("change", filterTable);
+  filterAssetNameSelect.addEventListener("change", filterTable);
+  filterDeptNameSelect.addEventListener("change", filterTable);
+  filterEmpNameInput.addEventListener("input", filterTable);
+  filterEmpNoInput.addEventListener("input", filterTable);
+  filterLocationNameSelect.addEventListener("change", filterTable);
+
+  
+  populateDropdown(filterAssetTypeSelect, assetTypes);
+  populateDropdown(filterDeptNameSelect, deptNames);
+  populateDropdown(filterLocationNameSelect, locationNames);
+
+  function populateDropdown(selectElement, options) {
+    options.forEach(function(option) {
+      var optionElement = document.createElement("option");
+      optionElement.value = option;
+      optionElement.textContent = option;
+      selectElement.appendChild(optionElement);
+    });
+  }
+
+  function filterTable() {
+    var filterAssetId = filterAssetIdInput.value.toUpperCase();
+    var filterAssetType = filterAssetTypeSelect.value.toUpperCase();
+    var filterAssetName = filterAssetNameSelect.value.toUpperCase();
+    var filterDeptName = filterDeptNameSelect.value.toUpperCase();
+    var filterEmpName = filterEmpNameInput.value.toUpperCase();
+    var filterEmpNo = filterEmpNoInput.value.toUpperCase();
+    var filterLocationName = filterLocationNameSelect.value.toUpperCase();
+
+    var tableBody = document.querySelector(".table-body");
+    var rows = tableBody.getElementsByTagName("tr");
+
+    for (var i = 0; i < rows.length; i++) {
+      var assetId = rows[i].getElementsByTagName("td")[0].textContent.toUpperCase();
+      var assetType = rows[i].getElementsByTagName("td")[1].textContent.toUpperCase();
+      var assetName = rows[i].getElementsByTagName("td")[2].textContent.toUpperCase();
+      var deptName = rows[i].getElementsByTagName("td")[3].textContent.toUpperCase();
+      var empName = rows[i].getElementsByTagName("td")[4].textContent.toUpperCase();
+      var empNo = rows[i].getElementsByTagName("td")[5].textContent.toUpperCase();
+      var locationName = rows[i].getElementsByTagName("td")[6].textContent.toUpperCase();
+
+      if (
+        assetId.includes(filterAssetId) &&
+        assetType.includes(filterAssetType) &&
+        assetName.includes(filterAssetName) &&
+        deptName.includes(filterDeptName) &&
+        empName.includes(filterEmpName) &&
+        empNo.includes(filterEmpNo) &&
+        locationName.includes(filterLocationName)
+      ) {
+        rows[i].style.display = "";
+      } else {
+        rows[i].style.display = "none";
+      }
+    }
+  }
+
+  
+  function fetchData() {
+    
+
+    var tableBody = document.querySelector(".table-body");
+    tableBody.innerHTML = "";
+
+    responseData.forEach(function(data) {
+      var row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${data.assetId}</td>
+        <td>${data.assetType}</td>
+        <td>${data.assetName}</td>
+        <td>${data.deptName}</td>
+        <td>${data.empName}</td>
+        <td>${data.empNo}</td>
+        <td>${data.locationName}</td>
+        <td>Update</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  }
+
+  // Fetch initial data
+  fetchData();
+});
+
