@@ -315,6 +315,106 @@ $.ajax({
 
 
 
+///soumyak code
+
+
+
+///  Advance searching ✈
+
+/**/
+
+
+///  document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading.
+document.addEventListener("DOMContentLoaded", function() {
+  var filterAssetIdInput = document.getElementById("filter-asset-id");
+  var filterAssetTypeSelect = document.getElementById("filter-asset-type");
+  var filterAssetNameInput = document.getElementById("filter-asset-name");
+  var filterDeptNameSelect = document.getElementById("filter-dept-name");
+  var filterEmpNameInput = document.getElementById("filter-emp-name");
+  var filterEmpNoInput = document.getElementById("filter-emp-no");
+  var filterLocationNameSelect = document.getElementById("filter-location-name");
+///here filter the data
+  filterAssetIdInput.addEventListener("input", filterTable);
+  filterAssetTypeSelect.addEventListener("change", filterTable);
+  filterAssetNameInput.addEventListener("input", filterTable);
+  filterDeptNameSelect.addEventListener("change", filterTable);
+  filterEmpNameInput.addEventListener("input", filterTable);
+  filterEmpNoInput.addEventListener("input", filterTable);
+  filterLocationNameSelect.addEventListener("change", filterTable);
+///Pop
+  function populateDropdown(selectElement, options) {
+    options.forEach(function(option) {
+      var optionElement = document.createElement("option");
+      optionElement.value = option;
+      optionElement.textContent = option;
+      selectElement.appendChild(optionElement);
+    });
+  }
+
+  function fetchData() {
+    fetch('http://localhost:3000/fetch')
+      .then(res => res.json())
+      .then(data => {
+        const { message, answer, answer2 } = data;
+
+        const dept_name_list = message.dept_name.map((dept) => {
+          return dept.dept_name;
+        });
+        const asset_type_list = answer.asset_type.map((asset) => {
+          return asset.asset_type;
+        });
+        const location_name_list = answer2.location_name.map((location) => {
+          return location.location_name;
+        });
+
+        populateDropdown(filterDeptNameSelect, dept_name_list);
+        populateDropdown(filterAssetTypeSelect, asset_type_list);
+        populateDropdown(filterLocationNameSelect, location_name_list);
+      })
+      .catch(err => console.error(err));
+  }
+///  Function use for     Filter the latter uperCase to Lowercase
+
+  function filterTable() {
+    var filterAssetId = filterAssetIdInput.value.toUpperCase();
+    var filterAssetType = filterAssetTypeSelect.value.toUpperCase();
+    var filterAssetName = filterAssetNameInput.value.toUpperCase();
+    var filterDeptName = filterDeptNameSelect.value.toUpperCase();
+    var filterEmpName = filterEmpNameInput.value.toUpperCase();
+    var filterEmpNo = filterEmpNoInput.value.toUpperCase();
+    var filterLocationName = filterLocationNameSelect.value.toUpperCase();
+  
+    var tableBody = document.querySelector(".table-body");
+    var rows = tableBody.getElementsByTagName("tr");
+  
+    for (var i = 0; i < rows.length; i++) {
+      var assetId = rows[i].getElementsByTagName("td")[0].textContent.toUpperCase();
+      var assetType = rows[i].getElementsByTagName("td")[1].textContent.toUpperCase();
+      var assetName = rows[i].getElementsByTagName("td")[2].textContent.toUpperCase();
+      var deptName = rows[i].getElementsByTagName("td")[3].textContent.toUpperCase();
+      var empName = rows[i].getElementsByTagName("td")[4].textContent.toUpperCase();
+      var empNo = rows[i].getElementsByTagName("td")[5].textContent.toUpperCase();
+      var locationName = rows[i].getElementsByTagName("td")[6].textContent.toUpperCase();
+  
+      if (
+        assetId.includes(filterAssetId) &&
+        assetType.includes(filterAssetType) &&
+        assetName.includes(filterAssetName) &&
+        deptName.includes(filterDeptName) &&
+        empName.includes(filterEmpName) &&
+        empNo.includes(filterEmpNo) &&
+        locationName.includes(filterLocationName)
+      ) {
+        rows[i].style.display = "";
+      } else {
+        rows[i].style.display = "none";
+      }
+    }
+  }
+  
+  // Fetch initial data and populate dropdowns
+  fetchData();
+});
 
 
 
@@ -330,7 +430,7 @@ fetch('http://localhost:3000/fetchdname')
     return dept.dept_name;
   });
   const asset_type_list = answer.asset_type.map((asset) => {
-    return asset.asset_type;
+    return asset.asset_desc;
   });
   console.log(dept_name_list);
   var selectElement = document.getElementById('dname');
@@ -356,15 +456,34 @@ function updateField() {
     return;
   }
 
-  field.value = "SA/" + branch.toUpperCase() +"/xy"+ "/1009";
+  field.value = "SA/" +branch.toLowerCase()+"/xy"+ "/1009";
   field.disabled = false;
-  field.addEventListener('input', function() {
-    var parts = field.value.split('/');
-    parts[1] = 'CSE';
-    field.value = parts.join('/');
-  });
+  // field.addEventListener('input', function() {
+  //   var parts = field.value.split('/');
+  //   parts[1] = 'cse';
+  //   field.value = parts.join('/');
+  // });
 }
 
+function assetclass(){
+  let atype=document.getElementById('asset-type').value
+  let at = encodeURIComponent(atype)
+  console.log('at: '+at);
+  fetch('http://localhost:3000/assetclass?at='+at)
+  .then(res => res.json())
+  .then(data=>{
+    console.log(data.message);
+
+    if(data.message){
+      $('#asset-class').val(data.message.asset_class);
+    }
+    else{
+      document.getElementById('asset-class').value="";
+    
+    }
+  })
+  .catch(error=> console.error(error));
+}
 
 
 function fetchData(){
@@ -396,7 +515,9 @@ function total(){
 function resetForm(){
   aid.value = '';
   aname.value = '';
-  atype.value = '';
+  assetcl.value = '';
+  $('asset-type')[0].selectedIndex = 0;
+  $('dname')[0].selectedIndex = 0;
   assetpi.value = '';
   di.value = '';
   empno.value = '';
@@ -411,6 +532,8 @@ function resetForm(){
  let aid = document.getElementById('asset-id');
 
 let aname = document.getElementById('asset-name');
+
+let assetcl=document.getElementById('asset-class');
 
 let atype = document.getElementById('asset-type');
 
@@ -427,6 +550,7 @@ document.getElementById('submitAssetForm').addEventListener('click', (function(e
   e.preventDefault();
   let assetdv = aid.value;
   let assetnv = aname.value;
+  let assetcv=assetcl.value;
   let assettv = atype.value;
   let assetpv = assetpi.value;
   let deptidv = di.value;
@@ -440,11 +564,11 @@ document.getElementById('submitAssetForm').addEventListener('click', (function(e
   }
 
     // Validate tag UUID format
-  // var tagUuidRegex = /^SA\/[a-z]{3}\/[a-z]\d\/\d{4}$/;
-  // if (!tagUuidRegex.test(taguidv)) {
-  //   alert("Invalid tag UUID format");
-  //   return;
-  // }
+  var tagUuidRegex = /^SA\/[a-z]{3}\/[a-z]\d\/\d{4}$/;
+  if (!tagUuidRegex.test(taguidv)) {
+    alert("Invalid tag UUID format");
+    return;
+  }
 
     // Validate empId format
   var empIdRegex = /^\d{6}$/;
@@ -455,21 +579,21 @@ return;
 
 // Validate asset ID based on asset class
 
-var assetIdRegex = /^\d{12}$/;
-if (!assetdv.match(assetIdRegex)) {
-alert('Asset ID must be a 12-digit number.');
-return;
-}
-
-
-// var assetClassValue = assetClass.value; 
-
-// var assetIdRegex = new RegExp('^' + assetClassValue + '\\d{10}$');
-
+// var assetIdRegex = /^\d{12}$/;
 // if (!assetdv.match(assetIdRegex)) {
-//   alert('Invalid asset ID for the specified asset class.');
-//   return;
+// alert('Asset ID must be a 12-digit number.');
+// return;
 // }
+
+
+var assetClassValue = assetcl.value; 
+
+var assetIdRegex = new RegExp('^' + assetClassValue + '\\d{10}$');
+
+if (!assetdv.match(assetIdRegex)) {
+  alert('Invalid asset ID(12-digits) for the specified asset class.');
+  return;
+}
 
 
 // Set the URL and request method
@@ -486,7 +610,8 @@ return;
       assetp:assetpv,
       deptid:deptidv,
       empid:empidv,
-      taguid:taguidv},
+      taguid:taguidv,
+      assetc:assetcv},
       
     success: function(response) {
      
