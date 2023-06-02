@@ -174,7 +174,7 @@ app.get('/d',(req,res)=>{
 
     app.post('/AllAssets', (req, res) => {
 
-        let query = `select  top(1000) a.asset_id, a.asset_type,a.asset_name,d.dept_name,CONCAT(e.first_name,'',e.middle_name,'',e.last_name) as emp_name,e.emp_no,l.location_name
+        let query = `select top(1000) a.asset_id, a.asset_type,a.asset_name,d.dept_name,CONCAT(e.first_name,'',e.middle_name,'',e.last_name) as emp_name,e.emp_no,l.location_name
         from asset.dbo.assets a
         inner join  asset.dbo.department d on a.dept_id =d.dept_id
         inner join asset.dbo.Employees e on e.dept_work = d.dept_name
@@ -273,7 +273,6 @@ app.post('/assetupload', upload.single('uploadFile'), function (req, res) {
       .pipe(csvParser())
       .on('data', function (row) {
   
-        // console.log(row);
         Asdata1 = Object.assign({}, row);
         Asdata2 = Object.assign({}, row);
   
@@ -290,17 +289,20 @@ app.post('/assetupload', upload.single('uploadFile'), function (req, res) {
           console.log('INVALID::::' + row.emp_no);
           responseStr += `Invalid emp no :::: ${row.emp_no}\n`;
         }
-        console.log('db insertion data' + Asdata2); 
+       
+        if(responseStr){
+            console.log(responseStr);
+        }else{
+            console.log(Asdata1);
+        //   insertDataToAsDatabase1(Asdata1);
+        //   insertDataToAsDatabase2(Asdata2);
+        }
       })
       .on('end', function () {
-        // console.log(Asdata1);
         if (responseStr)
           res.send((responseStr));
         else {
           res.send('file uploaded succesfully');
-          console.log('file uploaded succesfully');
-          // insertDataToAsDatabase1(Asdata1);
-          // insertDataToAsDatabase1(Asdata2);
         }
         
       })
@@ -349,11 +351,10 @@ app.post('/userupload', upload.single('uploadFile'), function (req, res) {
       fs.createReadStream(filePath)
       .pipe(csvParser())
       .on('data', function (row) {
-       // console.log(row);
+    
          data1 = Object.assign({}, row);
          data2 = Object.assign({}, row);
-        //  console.log(data1);
-   
+      
         if(!emailPattern.test(row.email)){
          console.log('INVALID::::'+row.email);
           responseStr += `Invalid E-mail :::: ${row.email}\n`;
@@ -383,27 +384,29 @@ app.post('/userupload', upload.single('uploadFile'), function (req, res) {
           console.log('INVALID::::'+row.Parent_org);
           responseStr += `Invalid Parent_Org :::: ${row.Parent_org}\n`;
         }
-        console.log('db insertion data'+data2);
+
+        //here the code all excel rows data insert in db
+        if(responseStr)
+        console.log('data not inserted into db');
+        else{
+          console.log('data inserted successfully in db');
+        //   insertDataToDatabase1(data1);
+        //   insertDataToDatabase2(data2);
+          
+        }
       })
        
-      .on('end', function () {      
+      .on('end', function () {  
         if(responseStr)
         res.send((responseStr));
         else{
           res.send('file uploaded succesfully');
-          console.log('file uploaded succesfully');
-          // insertDataToDatabase1(data1);
-          // insertDataToDatabase1(data2);
-          // console.log(data1);
-          // console.log(data2);
         }
       })               
       }catch(err){
       res.status(400).json(err);
     }
-    // res.send('uploaded succesfully');
   });
-  
   
   
   function insertDataToDatabase1(data1) {
@@ -429,8 +432,7 @@ app.post('/userupload', upload.single('uploadFile'), function (req, res) {
 ///single Asset Reg    
 app.get('/fetchdname',(req,res)=>{
     let query=`select dept_name from asset.dbo.department order by 1`;
-    let query1=`select distinct s.asset_type from asset.dbo.assets s where s.asset_type is not null and s.asset_type not in ('') order by 1 `
-
+    let query1=`select distinct asset_desc from asset.dbo.asset_class a order by 1`;
     let queryResult=mssql.query(query,(err,result)=>{
         if(err) throw err;
         else{
@@ -477,8 +479,37 @@ app.get('/ddata',(req,res)=>{
     })  
 
 })
+
+
+app.get('/assetclass',(req,res)=>{
+    let at=req.query.at;
+    console.log(`"${at}"`)
+    console.log('assetype value in fetch api: '+at)
+    let query=`select asset_class from asset.dbo.asset_class  where asset_desc='${at}'`
+    let queryResult=mssql.query(query,(err,result)=>{ 
+
+        if(err) throw err
+        if(result.recordset !=""){
+            const message={
+                at:at,
+                asset_class:result.recordset[0].asset_class,
+
+            }
+            res.send({message: message});
+            console.log(message)
+        }
+
+        else
+        {
+            res.json({message: 'No existing asset_class'})
+        }
+    })  
+
+})
+
+
 app.post('/assetreg',(req,res)=>{
-    const{assetd,assetn,assett,assetp,deptid,empid,taguid}=req.body
+    const{assetd,assetn,assett,assetp,deptid,empid,taguid,assetc}=req.body
     console.log(req.body)
     let tag_t="RFID";
 
@@ -486,18 +517,18 @@ app.post('/assetreg',(req,res)=>{
                                                                                                                             
     let query1=`select * from asset.dbo.assets where tag_uuid='${taguid}'`
      
-    let query2=`insert into asset.dbo.assets(asset_id,asset_type,asset_price,asset_name,dept_id,emp_no,tag_uuid)
+    let query2=`insert into asset.dbo.assets(asset_id,asset_type,asset_price,asset_name,dept_id,emp_no,tag_uuid,asset_class)
     Values('${assetd}','${assett}','${assetp}','${assetn}','${deptid}','${empid}','${taguid}')`
      
 
-    let query3=`insert into  asset.dbo.tags (tag_type,tag_uuid) Values('${tag_t}','${taguid}')`
+    let query3=`insert into  asset.dbo.tags (tag_type,tag_uuid) Values('${tag_t}','${taguid}','${assetc}')`
 
     let query4=`insert  
     into  asset.dbo.tags (tag_type,tag_uuid) Values('${tag_t}','${taguid}')`
 
     
-    let query5 =`insert into asset.dbo.assets(asset_id,asset_type,asset_price,asset_name,dept_id,emp_no,tag_uuid)
-    Values('${assetd}','${assett}','${assetp}','${assetn}','${deptid}','${empid}','${taguid}')`
+    let query5 =`insert into asset.dbo.assets(asset_id,asset_type,asset_price,asset_name,dept_id,emp_no,tag_uuid,asset_class)
+    Values('${assetd}','${assett}','${assetp}','${assetn}','${deptid}','${empid}','${taguid}','${assetc}')`
 
 
  
@@ -2558,4 +2589,53 @@ app.post('/multiReq', (req, res)=>{
                 res.send('Denied');
             }
         })
+    })
+    ///
+    ///Adavance seach drop-down 
+app.get('/fetch',(req,res)=>{
+    let query=`select distinct dept_name from asset.dbo.department`;
+    let query1=`select distinct asset_type from asset.dbo.assets a where asset_type is not null order by 1`
+    let query2=`select location_name from asset.dbo.location`
+    let queryResult=mssql.query(query,(err,result)=>{
+        if(err) throw err;
+        else{
+            // res.sendFile('index.html', { root: __dirname+ "/public" })
+            let queryResult1=mssql.query(query1,(err,result1)=>{
+                if(err) throw err;
+
+                else{
+
+                    let queryResult2=mssql.query(query2,(err,result2)=>{
+                        if(err) throw err;
+
+            const message={
+              
+                dept_name:result.recordset
+                          
+            }
+            const answer={
+
+
+                asset_type:result1.recordset
+            }
+
+
+            const answer2={
+                location_name:result2.recordset
+            }
+
+            res.send({message: message,answer:answer,answer2:answer2});
+
+            console.log(message)
+
+            console.log(answer)
+        })
+          }
+       
+        
+        })
+    }
+    
+    })
+    
     })
