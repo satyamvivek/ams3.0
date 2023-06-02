@@ -1415,10 +1415,8 @@ body {
       
         }
     .form-group-21{
-       width: 20vw;
-       font-size: 20px;
-      /* margin-top: -4%;
-      margin-left: 5%; */ 
+       width: 10vw;
+       /* font-size: 20px; */
       float: right;
       margin-top: 6%;
   
@@ -1441,30 +1439,58 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: -5px;
 }
 
 /* Styling for the pagination buttons */
 .pagination li {
-  margin: 0 5px;
+  margin: 2px 5px;
+  padding-left: 10px;
+}
+
+.pagination li:hover {
+    border: 1px solid black;
+    border-radius: 50%;  
+    padding-right: 10px;
 }
 
 /* Styling for the previous and next buttons */
 .pagination li[data-page="prev"],
 .pagination li[data-page="next"] {
-  padding: 5px 10px;
-  border: 2px solid #ccc;
-  background-color:royalblue;
+  padding: 5px;
+  width: 3vw;
+  border: 1px solid #1b1a1a;
+  border-radius: 50%;
+  background-color:#73a5d6;
   cursor: pointer;
 }
 
 /* Styling for the close appearance of the buttons */
 .pagination li[data-page="prev"] span:before,
 .pagination li[data-page="next"] span:after {
-  content: "x";
+ 
   font-weight: bold;
 }
 
 /* Styling for the current page indicator */
 .pagination .sr-only {
   display: none;
+}
+
+span {
+  color: rgb(13, 13, 14);
+  border: 1px;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+input[type="text"],select{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 10px;
 }
