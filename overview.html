@@ -88,16 +88,16 @@
             <div class="form-container">
                 <div class="slide-controls" style="margin-left: 25%;">
                     <input type="radio" name="slide" id="login" checked>
-                    <input type="radio" name="slide" id="signup" >
-                   
-                        <label for="login" class="slide login" >Single Asset</label>
-                         <label for="signup" class="slide signup">Multiple Asset</label>
-                    
-                    <div class="slider-tab" ></div>
+                    <input type="radio" name="slide" id="signup">
+
+                    <label for="login" class="slide login">Single Asset</label>
+                    <label for="signup" class="slide signup">Multiple Asset</label>
+
+                    <div class="slider-tab"></div>
                 </div>
                 <div class="form-inner">
-                  
-                      <!-- <form action="#" class="login">
+
+                    <!-- <form action="#" class="login">
                     <h1>Single Asset Registration </h1> -->
                     <!-- <div class="single-container">
                     <div class="form-group">
@@ -132,99 +132,111 @@
                         <input type="submit" value="Register Asset">
                         </div>
                 </div> -->
-                      <!-- </form> -->
-                      <form action="#" class="login" id="Assetreg" >
+                    <!-- </form> -->
+                    <form action="#" class="login" id="Assetreg">
                         <h1>Single Asset Registration </h1>
                         <div class="single-container">
                             <div class="form-group">
-                                <label for="asset-id"><i class='bx bxs-objects-vertical-bottom' ></i>&nbsp; &nbsp;Asset Id </label>
-                                <input type="number" name="assetd"  placeholder="Asset id" id="asset-id" required></div>
-                        <div class="form-group">
-                
-                
-                            <label for="asset-name"><i class='bx bxs-objects-vertical-bottom' ></i>&nbsp; &nbsp;Asset Name </label>
-                            <input type="text" name="assetn"  placeholder="Asset Name" id="asset-name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="asset-type"><i class='bx bxs-devices' ></i>&nbsp;&nbsp; Asset Type</label>
-                            <input type="text" name="assett"  placeholder="Asset Type"   id="asset-type" required>
-                        </div>
-                      
-                       
-                       
-                        <div class="form-group">
-                            <label for="asset-price"><i class='bx bxs-calendar' ></i>&nbsp; &nbsp;Asset Price</label>
-                            <input type="number" name="assetp"  placeholder="Asset Price" id="asset-price" required>
-                        </div>
-                      
-                        <div class="form-group">
-                            <label for="dname"><i class='bx bx-map-pin'></i>&nbsp;&nbsp; Department Name</label>
-                            <select name="deptn" id="dname" class="select"  required oninput="fetchData()">
-                                <option value="" selected disabled>Select dept_name</option>
-                            </select>
-                          
-                 
-                        </div>
-                        
-                
-                        <div class="form-group">
-                            <label for="did"><i class='bx bxs-business'></i>&nbsp; &nbsp;Department Id</label>
-                            <input type="text" name="depid"  placeholder="Department id" id="did"  readonly required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="emp_no"><i class='bx bxs-business'></i>&nbsp; &nbsp;Emp No.</label>
-                            <input type="number" name="empid"  placeholder="Employee Id" id="emp_no" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="tag_uuid"><i class='bx bxs-business'></i>&nbsp; &nbsp;Tag_uuid(SA/abc/a1/0000)</label>
-                            <input type="text" name="taguid"  placeholder="Tag  UUId" id="tag_uuid" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Register Asset" id="submitAssetForm">
+                                <label for="asset-id"><i class='bx bxs-objects-vertical-bottom'></i>&nbsp; &nbsp;Asset
+                                    Id </label>
+                                <input type="number" name="assetd" placeholder="Asset id" id="asset-id" required>
                             </div>
-                    </div>
-                          </form>
-                 
+                            <div class="form-group">
+
+
+                                <label for="asset-name"><i class='bx bxs-objects-vertical-bottom'></i>&nbsp; &nbsp;Asset
+                                    Name </label>
+                                <input type="text" name="assetn" placeholder="Asset Name" id="asset-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="asset-type"><i class='bx bxs-devices'></i>&nbsp;&nbsp; Asset Type</label>
+                                <select name="assett" id="asset-type" required oninput="assetclass()">
+                                    <option value="" selected disabled>Select asset_type</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="asset-price"><i class='bx bxs-calendar'></i>&nbsp; &nbsp;Asset Price</label>
+                                <input type="number" name="assetp" placeholder="Asset Price" id="asset-price" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="asset-class"><i class='bx bxs-calendar' ></i>&nbsp; &nbsp;Asset Class</label>
+                                <input type="number" name="assetc"  placeholder="Asset Class" id="asset-class" readonly required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dname"><i class='bx bx-map-pin'></i>&nbsp;&nbsp; Department Name</label>
+                         
+                                    <select name="deptn" id="dname" class="select"  required oninput="total()">
+                                    <option value="" selected disabled>Select dept_name</option>
+                                </select>
+
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="did"><i class='bx bxs-business'></i>&nbsp; &nbsp;Department Id</label>
+                                <input type="text" name="depid" placeholder="Department id" id="did" readonly required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emp_no"><i class='bx bxs-business'></i>&nbsp; &nbsp;Emp No.</label>
+                                <input type="number" name="empid" placeholder="Employee Id" id="emp_no" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tag_uuid"><i class='bx bxs-business'></i>&nbsp;
+                                    &nbsp;Tag_uuid(SA/abc/a1/0000)</label>
+                                <input type="text" name="taguid" placeholder="Tag  UUId" id="tag_uuid" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Register Asset" id="submitAssetForm">
+                            </div>
+                        </div>
+                    </form>
+
                     <form action="#" class="signup">
-                       
+
                         <div class="container-csv">
                             <div class="card-csv">
-                             <h3>Upload File</h3>
-                             <div class="drop-box-csv">
-                                 <!-- <header>
+                                <h3>Upload File</h3>
+                                <div class="drop-box-csv">
+                                    <!-- <header>
                                      <h4>Select File here !</h4>
                                  </header> -->
-                                 <p>File Support: CSV/EXCEL</p>
-                                 <section class="uploadForm">
-                                    <img src="images/csv.jpg" width="110">
-                                  
-                                    <label for="uploadFile"><i class='bx bx-select-multiple' ></i>&nbsp;Select file</label>
-                                    <input type="file" name="uploadFile" id="uploadFile" accept=".csv" value="Select file" style="display: none">
-                                 
-                                    <div id="mess">
-                        
-                                    </div>
-                                </section>
-                                <button id="uploadBtns" class="upload-btn">Upload</button>
-                             </div>
-                             <!-- <div id="message">
+                                    <p>File Support: CSV/EXCEL</p>
+                                    <section class="uploadForm">
+                                        <img src="images/csv.jpg" width="110">
+
+                                        <label for="uploadFile"><i class='bx bx-select-multiple'></i>&nbsp;Select
+                                            file</label>
+                                        <input type="file" name="uploadFile" id="uploadFile" accept=".csv"
+                                            value="Select file" style="display: none">
+
+                                        <div id="mess">
+
+                                        </div>
+                                    </section>
+                                    <button id="uploadBtns" class="upload-btn">Upload</button>
+                                </div>
+                                <!-- <div id="message">
 
                              </div> -->
-                         
-                             <div class="file-csv">
-                                
-                                 <button onclick="downloadCSV(people)" style="margin-top: -5px;"><i class='bx bx-downvote' ></i>Download CSV  file</button>
-                             </div>
-                         
+
+                                <div class="file-csv">
+
+                                    <button onclick="downloadCSV(people)" style="margin-top: -5px;"><i
+                                            class='bx bx-downvote'></i>Download CSV file</button>
+                                </div>
+
                             </div>
-                            
-                             </div>
-                        
+
+                        </div>
+
                     </form>
-                    
+
                 </div>
-                
+
             </div>
         </div>
 
@@ -235,68 +247,7 @@
 
 
     <!-- Advance search -->
-    <div id="modal-background-advance-search" style="display: none;">
-        <div class="wrapper-advance-search">
-            <span id="close-btn-advance-search" style="float: right; font-size: 30px;">&times;</span>
-            <div class="form-container-adv">
-                <div class="form-inner-adv">
-                    <form action="#" class="login" onsubmit="">
-                        <h1>Advance Search</h1>
-                        <div class="single-container">
-
-
-
-                            <div class="form-group">
-                                <label for="asset-type"><i class='bx bxs-devices'></i>&nbsp;&nbsp; Asset Type</label>
-                                <input type="text" name="asset-name" placeholder="Asset Type" id="" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="asset-name"><i class='bx bxs-objects-vertical-bottom'></i>&nbsp; &nbsp;Asset
-                                    Name</label>
-                                <input type="text" name="asset-name" placeholder="Asset Name" id="" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="department-tagid"><i class='bx bxs-business'></i>&nbsp; &nbsp;Department
-                                    Name</label>
-                                <input type="text" name="department-tagid" placeholder="Department Id" id="" required
-                                    disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="employee-name"><i class='bx bxs-business'></i>&nbsp; &nbsp;Employee
-                                    Name</label>
-                                <input type="text" name="employee-name" placeholder="Employee Name" id="" required
-                                    disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="employee-id"><i class='bx bxs-business'></i>&nbsp; &nbsp;Employee No</label>
-                                <input type="text" name="employee-id" placeholder="Employee No" id="" required disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="asset-location"><i class='bx bx-map-pin'></i>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-                                    Location</label>
-                                <input type="text" name="asset-location" placeholder="Asset Location" id="" required>
-                            </div>
-                            <div class="form-group-11">
-                                <input type="submit" class="search" id="save-btn"
-                                    style="width: 10vw; height: 4vh; margin-left: 30%;" value="Search">
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-
-            </div>
-        </div>
-
-
-
-    </div>
-
+ 
 
 
 
@@ -406,24 +357,21 @@
                     <input type="text" id="searchInput" placeholder="Search here ..........." style="margin-left: 22%;">
 
                     <button type="button" onclick="searchTable()"><i class='bx bx-search-alt-2'></i>Search</button>
-       
+
 
                     <div class="btn">
 
                         <button id="open-btn"><i class='bx bxs-add-to-queue'></i>
                             Add New Asset
                         </button>
-                        <div class="advance-search">
-                            <button type="button" id="adv_open-btn"><i class='bx bxs-file-find'></i> Advance
-                                search</button>
-                        </div>
+                        
                     </div>
 
-                    <div class="form-group-21"> 	<!--		Show Numbers Of Rows 		-->
+                    <div class="form-group-21"> <!--		Show Numbers Of Rows 		-->
                         <h7>Select Number Of Rows</h7>
                         <select class="form-control" name="state" id="maxRows">
                             <option value="5000">Show ALL Rows</option>
-                         
+
                             <option value="50" selected>50</option>
                             <option value="100">100</option>
                             <option value="150">150</option>
@@ -443,15 +391,20 @@
 
                                     <thead class="table-head" title="Click to sort">
                                         <tr class="table-row">
-                                            <th class="col-head" scope="col">Asset Id</th>
-                                            <th class="col-head" scope="col">Asset Type</th>
-
-                                            <th class="col-head" scope="col">Asset Name</th>
-                                            <th class="col-head" scope="col">Dept Name</th>
-                                            <th class="col-head" scope="col">Emp Name</th>
-                                            <th class="col-head" scope="col">Emp No</th>
-                                            <!-- <th class="col-head" scope="col">Location Id</th> -->
-                                            <th class="col-head" scope="col">Location Name</th>
+                                            <th class="col-head" scope="col">Asset Id<br><input type="text" id="filter-asset-id"></th>
+                                            <th class="col-head" scope="col">Asset Type<br><select id="filter-asset-type">
+                                                <option value="" selected disabled></option>
+                                            </select></th>
+                                            <th class="col-head" scope="col">Asset Name<br><input type="text" id="filter-asset-name"></th>
+                                            <th class="col-head" scope="col">Dept Name<br><select id="filter-dept-name">
+                                                <option value="" selected disabled></option>
+                                            </select></th>
+                                            <th class="col-head" scope="col">Emp Name<br><input type="text" id="filter-emp-name"></th>
+                                            <th class="col-head" scope="col">Emp No<br><input type="text" id="filter-emp-no"></th>
+                                            <th class="col-head" scope="col">Location Name<br><select id="filter-location-name">
+                                                <option value="" selected disabled></option>
+                                                
+                                            </select></th>
                                             <th class="col-head" scope="col">Update</th>
                                         </tr>
                                     </thead>
@@ -461,23 +414,25 @@
 
                                     </tbody>
                                 </table>
-                                
+
                             </div> <!-- /.table-scroll -->
                         </div> <!-- /.table-wrapoer -->
-                       <!--   next page pagination-->
-                       <div class='pagination-container' >
-                        <nav>
-                          <ul class="pagination">
-                            <li data-page="prev" >
-                                <span> < <span class="sr-only">(current)</span></span>
-                            </li>
-                           <!--	Here the JS Function Will Add the Rows -->
-                            <li data-page="next" id="prev">
-                                <span> > <span class="sr-only">(current)</span></span>
-                            </li>
-                          </ul>
-                        </nav>
-                    </div>
+                        <!--   next page pagination-->
+                        <div class='pagination-container'>
+                            <nav>
+                                <ul class="pagination">
+                                    <li data-page="prev">
+                                        <span>
+                                            < <span class="sr-only">(current)
+                                        </span></span>
+                                    </li>
+                                    <!--	Here the JS Function Will Add the Rows -->
+                                    <li data-page="next" id="prev">
+                                        <span> > <span class="sr-only">(current)</span></span>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
 
 
 
@@ -505,7 +460,7 @@
 
 
 
-    <!--when search-bar is empty then autorefresh the web page/table-->
+   
 
 
     <!---Script for seaching the table data-->
@@ -598,40 +553,8 @@
 
 
 
-    <!--  Popup for adavance search -->
 
-
-    <script>
-        // select the open-btn button
-        let adv_openBtn = document.getElementById('adv_open-btn');
-        // select the modal-background
-        let adv_modalBackground = document.getElementById('modal-background-advance-search');
-        // select the close-btn 
-        let adv_closeBtn = document.getElementById('close-btn-advance-search');
-
-        // shows the modal when the user clicks open-btn
-        adv_openBtn.addEventListener('click', function () {
-            adv_modalBackground.style.display = 'block';
-        });
-
-        // hides the modal when the user clicks close-btn
-        adv_closeBtn.addEventListener('click', function () {
-            adv_modalBackground.style.display = 'none';
-        });
-
-        // hides the modal when the user clicks outside the modal
-        window.addEventListener('click', function (event) {
-            // check if the event happened on the modal-background
-            if (event.target === adv_modalBackground) {
-                // hides the modal
-                adv_modalBackground.style.display = 'none';
-            }
-        });
-    </script>
-
-
-
-    <!---SCRIPT FOR POPUP-->
+    <!---SCRIPT FOR POPUP  the single and Muliple Asset Registion -->
     <script>
         // select the open-btn button
         let openBtn = document.getElementById('open-btn');
@@ -639,24 +562,44 @@
         let modalBackground = document.getElementById('modal-background');
         // select the close-btn 
         let closeBtn = document.getElementById('close-btn');
-
-        // shows the modal when the user clicks open-btn
+        // select the form
+        let form = document.querySelector('wrapper');
+        // flag to track if close button is clicked
+        let isCloseButtonClicked = false;   ///   here   boolen function
+    
+        // shows the modal when the user clicks open-btn    
         openBtn.addEventListener('click', function () {
             modalBackground.style.display = 'block';
         });
-
+    
         // hides the modal when the user clicks close-btn
         closeBtn.addEventListener('click', function () {
             modalBackground.style.display = 'none';
+            isCloseButtonClicked = true;
         });
-
-        // hides the modal when the user clicks outside the modal
+    
+        // prevent form submission from closing the modal
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            // handle form submission logic here
+            // e.g., validate inputs and submit data
+        });
+    
+        // prevent closing the modal when clicking outside
         window.addEventListener('click', function (event) {
-            // check if the event happened on the modal-background
-            if (event.target === modalBackground) {
-                // hides the modal
-                modalBackground.style.display = 'none';
+            // check if the event target is the modal background itself
+            if (event.target === modalBackground && event.targe!==closeBtn ) {
+                if (!isCloseButtonClicked) {
+                    return;
+                }
+                isCloseButtonClicked = false;
             }
+            // check if the event target is a child element of the modal content
+            if (!modalBackground.contains(event.target)) {
+                return;
+            }
+            // hide the modal only if the clicked element is not within the modal content
+            modalBackground.style.display = 'none';
         });
     </script>
 
@@ -681,39 +624,14 @@
             return false;
         });
     </script>
-    <!--Upload the file-->
-    <!-- <script>
-        const dropArea = document.querySelector(".drop-box-csv"),
-            button = dropArea.querySelector("button"),
-            dragText = dropArea.querySelector("header"),
-            input = dropArea.querySelector("input");
-        let file;
-        var filename;
-        button.onclick = () => {
-            input.click();
-        };
-        input.addEventListener("change", function (e) {
-            var fileName = e.target.files[0].name;
-            let filedata = `
-    <form action=method="post">
-        <div class="from">
-            <h4>${fileName}</h4>
-            <button class="btn" id="uploadBtn"><i class='bx bx-upload' ></i> Upload</button>
-            </div>
-            </from>`;
-            dropArea.innerHTML = filedata;
-
-        });
-
-    </script> -->
-
+    
 
     <!---Download csv file   25/05/2023-->
     <script>
-            var people = [
-    { asset_price:' ' , asset_id :' ', emp_no: ' ', tag_uuid: ' ', asset_type: ' ',asset_name: ' ',dept_id:' ' }
-    
-  ];
+        var people = [
+            { asset_price: ' ', asset_id: ' ', emp_no: ' ', tag_uuid: ' ', asset_type: ' ', asset_name: ' ', dept_id: ' ' }
+
+        ];
 
 
         function createCSV(array) {
@@ -758,10 +676,6 @@
             $("#refresh-btn").on("click", RefreshPage);
 
         });
-
-
-
-
     </script>
     </script>
 

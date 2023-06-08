@@ -313,10 +313,10 @@ function resetForm() {
     }
   
     // Validate password
-    var passwordRegex = /^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{6,}$/;
-    if (!passwordValue.match(passwordRegex)) {
-         alert('Password must contain at least one uppercase letter, one lowercase letter, one special character, one number, and be at least 6 characters long.');
-        return;
+  var passwordRegex =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/;
+  if (!passwordValue.match(passwordRegex)) {
+       alert('Password must contain at least one uppercase letter, one lowercase letter, one special character, one number, and be at least 6 characters long.');
+      return;
 }
      // Validate confirm password
   if (passwordValue !== confirmPasswordValue) {

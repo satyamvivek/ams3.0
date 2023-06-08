@@ -62,9 +62,11 @@ if(sessionStorage.getItem('sessionVar') == 'pass'){
         <li>
             <a href="./requests.html"><i class='bx bxs-layer' ></i></a> <!--Request -->
         </li>
+        
         <li>
             <a href="./profile.html"><i class='bx bxs-user'></i></a> <!--Request -->
         </li>
+        
     </ul>`;
 }
 else if(sessionStorage.getItem('sessionVar') == 'userPass'){
@@ -73,6 +75,7 @@ else if(sessionStorage.getItem('sessionVar') == 'userPass'){
         <li>
             <a href="./userDash.html"><i class='bx bxs-dashboard'></i></a> <!--Dashboard -->
         </li>
+       
         <li>
             <a href="./profile.html"><i class='bx bxs-user'></i></a> <!--Request -->
         </li>
