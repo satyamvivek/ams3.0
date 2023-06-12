@@ -1,7 +1,6 @@
 //excelsheet download
 var people = [
-    { user_id:' ', first_name: ' ', middle_name   : ' ',last_name   : ' ',email   : ' ', password   : ' ', user_type   : ' ',Parent_org:   '',dept_work:'',contact_no:''
-    }
+    { user_id:'', first_name: '', middle_name   : '',last_name   : '',email   : '', password   : '', user_type   : '',Parent_org:   ''}
   
   ];
   
@@ -38,10 +37,12 @@ var people = [
   //ajax part
 
   $(document).ready(function() {
-    $('#uploadBtns').on('click', function() {
+    $('#uploadBtns').on('click', function(e) {
+      e.preventDefault();
+      
       var fileInput = $('#uploadFile')[0];
       var file = fileInput.files[0];
-  
+
       if (file) {
         var formData = new FormData();
         formData.append('uploadFile', file);
@@ -53,13 +54,18 @@ var people = [
           contentType: false,
           success: function(response) {
             $('#mess').text(response);
-            console.log(response);
+         
             alert(response);
           },
           error: function(error) {
             $('#mess').text('Error uploading file.');
           }
         });
-      }
+    }
     });
   });
+  
+
+//   function refreshPage() {
+//     location.reload(true);
+// }

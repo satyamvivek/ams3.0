@@ -276,9 +276,9 @@ function resetForm() {
     confirmPassword.value = '';
     empId.value = '';
     $('#parental')[0].selectedIndex = 0;       //parental.value = '';
-    $('#department')[0].selectedIndex=0;                //department.value = '';
-    contact.value = '';
-    address.value = '';
+    // $('#department')[0].selectedIndex=0;                //department.value = '';
+    // contact.value = '';
+    // address.value = '';
   }
   
   // Event handler for the submit button
@@ -293,14 +293,14 @@ function resetForm() {
     let passwordValue = password.value;
     let empIdValue = empId.value;
     let parentalValue = parental.value;
-    let departmentValue = department.value;
-    let contactValue = contact.value;
+    // let departmentValue = department.value;
+    // let contactValue = contact.value;
      // Get confirm password value
   let confirmPasswordValue = confirmPassword.value;
     // let addressValue = address.value;
   
     // Validate input fields
-    if (!firstNameValue || !lastNameValue || !emailValue || !passwordValue || !empIdValue || !departmentValue || !contactValue || !confirmPasswordValue) {
+    if (!firstNameValue || !lastNameValue || !emailValue || !passwordValue || !empIdValue || !confirmPasswordValue || !parentalValue) {
       alert('Please fill in all required fields.');
       return;
     }
@@ -313,10 +313,10 @@ function resetForm() {
     }
   
     // Validate password
-    var passwordRegex = /^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{6,}$/;
-    if (!passwordValue.match(passwordRegex)) {
-         alert('Password must contain at least one uppercase letter, one lowercase letter, one special character, one number, and be at least 6 characters long.');
-        return;
+  var passwordRegex =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/;
+  if (!passwordValue.match(passwordRegex)) {
+       alert('Password must contain at least one uppercase letter, one lowercase letter, one special character, one number, and be at least 6 characters long.');
+      return;
 }
      // Validate confirm password
   if (passwordValue !== confirmPasswordValue) {
@@ -332,11 +332,11 @@ function resetForm() {
     }
   
     // Validate contact number format
-    var contactRegex = /^[1-9]\d{9}$/;
-    if (!contactValue.match(contactRegex)) {
-      alert('Contact number must be a 10-digit number.');
-      return;
-    }
+    // var contactRegex = /^[1-9]\d{9}$/;
+    // if (!contactValue.match(contactRegex)) {
+    //   alert('Contact number must be a 10-digit number.');
+    //   return;
+    // }
   
     // Set the URL and request method
     var url = 'http://localhost:3000/done'; // Replace with your server-side script URL
@@ -354,8 +354,8 @@ function resetForm() {
         password: passwordValue,
         confirmPassword:confirmPasswordValue,
         parental: parentalValue,
-        department: departmentValue,
-        contact: contactValue,
+        // department: departmentValue,
+        // contact: contactValue,
 
 
         // address: addressValue,
