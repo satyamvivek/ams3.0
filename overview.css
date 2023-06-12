@@ -1515,34 +1515,3 @@ body {
 .pagination .sr-only {
   display: none;
 }
-
-span {
-  color: rgb(13, 13, 14);
-  border: 1px;
-  font-size: 30px;
-  text-decoration: none;
-  cursor: pointer;
-}
-input[type="text"],select{
-  width: 100%;
-  box-sizing: border-box;
-  padding: 5px;
-  border-radius: 10px;
-  }
-  
-
-    .uploadForm label {
-      font-weight: bold;
-      margin-top: 15px;
-      padding: 8px 20px;
-      border-radius: 20px;
-      background-color: yellowgreen;
-      box-shadow: 0px 1px 2px black;
-    }
-
-  #no-data-message {
-          font-size: 50px;
-          /* Adjust the font size as desired */
-          margin-top: -15%;
-          color: black;
-        }

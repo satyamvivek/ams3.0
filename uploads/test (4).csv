@@ -1,1 +1,6 @@
 user_id,first_name,middle_name,last_name,email,password,user_type,Parent_org,dept_work,contact_no
+<<<<<<< HEAD
+=======
+123455,sdfsgfd,dsfdfdsq,dgfdgf,a@gmail.com,Soum@123,Adnin,KIIT,MECHANICAL,1234567890
+234243,DFGDFG,DFGDFG,GDFGFD,abc@gnaim.co,dsf@S324,User,KIIT,CSE,3454353452
+>>>>>>> d03491ef174b0d77977276ec36bc492f6327b96d

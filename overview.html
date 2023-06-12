@@ -204,22 +204,20 @@
                                     <!-- <header>
                                      <h4>Select File here !</h4>
                                  </header> -->
-                                    <p>File Support: CSV/EXCEL</p>
-                                    <section class="uploadForm">
-                                        <img src="images/csv.jpg" width="110">
-
-                                        <label for="uploadFile"><i class='bx bx-select-multiple'></i>&nbsp;Select
-                                            file</label>
-                                        <input type="file" name="uploadFile" id="uploadFile" accept=".csv"
-                                            class="select-file" value="Select file" style="display: none">
-
-                                        <div id="mess">
-
-                                        </div>
-                                    </section>
-                                    <button id="uploadBtns" class="upload-btn">Upload</button>
-                                </div>
-                                <!-- <div id="message">
+                                 <p>File Support: CSV/EXCEL</p>
+                                 <section class="uploadForm">
+                                    <img src="images/csv.jpg" width="110">
+                                  
+                                    <label for="uploadFile"><i class='bx bx-select-multiple' ></i>&nbsp;Select file</label>
+                                    <input type="file" name="uploadFile" id="uploadFile" accept=".csv" value="Select file" style="display: none">
+                                 
+                                    <div id="mess">
+                        
+                                    </div>
+                                </section>
+                                <button id="uploadBtns" class="upload-btn">Upload</button>
+                             </div>
+                             <!-- <div id="message">
 
                              </div> -->
 
@@ -626,10 +624,10 @@
 
     <!---Download csv file   25/05/2023-->
     <script>
-        var people = [
-            { asset_price: '', asset_id: '', emp_no: '', tag_uuid: '', asset_type: '', asset_name: '', dept_id: '' }
-
-        ];
+            var people = [
+    { asset_price:' ' , asset_id :' ', emp_no: ' ', tag_uuid: ' ', asset_type: ' ',asset_name: ' ',dept_id:' ' }
+    
+  ];
 
 
         function createCSV(array) {

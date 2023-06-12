@@ -59,37 +59,7 @@ $(document).ready(function() {
 
     call_edit_registration_popup($(this), asset_id, asset_type, asset_name, dept_name, emp_name, emp_no, location_name);
   });
-
-  function edit(asset_id, asset_type, asset_name, dept_name, emp_name, emp_no, location_name){
-    $.ajax({
-      url: "http://localhost:3000/editAssets",
-      method: "POST",
-      data: {
-        asset_id:asset_id,
-    asset_type:asset_type,
-   asset_name:asset_name,
-       dept_name:dept_name,
-     emp_name:emp_name,
-       emp_no:emp_no,
-     location_name:location_name,
-      },
-      success: function (response) {
-        if (response.code == "Updation_done_Successfully") {
-          alert(response.response);
-          console.log(response.response);
-        }
-        else {
-          alert(response.response);
-          console.log(response.response);
-
-        }
-        console.log(1);
-        console.log(location_name, asset_name);
-
-      }
-    });
-  
-  }
+});
 
 function call_edit_registration_popup(e, asset_id, asset_type, asset_name, dept_name, emp_name, emp_no, location_name){
   let thisBtn = $(e);
@@ -300,263 +270,84 @@ $('#maxRows').on('change', function(evt) {
 .change();
 }
 
+function limitPagging(){
 
-  function limitPagging() {
-    var currentPage = parseInt($('.pagination li.active').attr('data-page'));
-    var totalPages = $('.pagination li').length - 2;
+if($('.pagination li').length > 7 ){
+    if( $('.pagination li.active').attr('data-page') <= 3 ){
+    $('.pagination li:gt(5)').hide();
+    $('.pagination li:lt(5)').show();
+    $('.pagination [data-page="next"]').show();
+  }if ($('.pagination li.active').attr('data-page') > 3){
+    $('.pagination li:gt(0)').hide();
+    $('.pagination [data-page="next"]').show();
+    for( let i = ( parseInt($('.pagination li.active').attr('data-page'))  -2 )  ; i <= ( parseInt($('.pagination li.active').attr('data-page'))  + 2 ) ; i++ ){
+      $('.pagination [data-page="'+i+'"]').show();
+    }
+  }
+}
+}
 
-    if (currentPage <= 3) {
-      $('.pagination li:gt(5)').hide();
-      $('.pagination li:lt(5)').show();
-      $('.pagination [data-page="next"]').show();
-      $('.pagination [data-page="prev"]').show();
-    } else if (currentPage > 3 && currentPage < totalPages - 2) {
-      $('.pagination li').hide();
-      $('.pagination [data-page="next"]').show();
-      $('.pagination [data-page="prev"]').show();
+// $(function() {
+//   // Just to append id number for each row
+//   $('table tr:eq(0)').prepend('<th> ID </th>');
 
-      for (var i = currentPage - 2; i <= currentPage + 2; i++) {
-        $('.pagination [data-page="' + i + '"]').show();
-      }
+//   var id = 0;
+
+//   $('table tr:gt(0)').each(function() {
+//     id++;
+//     $(this).prepend('<td>' + id + '</td>');
+//   });
+// });
+
+$(document).on('click', '.adv_open-btn', function() {
+$.ajax({
+  url: "",
+  method: "POST",
+  data: { action: 'fetch' },
+  dataType: "JSON",
+  success: function(response) {
+    if (response.code == "NO_DATA_FOUND") {
+      $(".no-data-message").show(); // Show the message
+      $(".table-body").empty(); // Clear the table body
     } else {
-      $('.pagination li').hide();
-      $('.pagination [data-page="next"]').show();
-      $('.pagination [data-page="prev"]').show();
+      $(".no-data-message").hide(); // Hide the message
 
-      for (var j = totalPages - 4; j <= totalPages; j++) {
-        $('.pagination [data-page="' + j + '"]').show();
+      var html = '';
+      for (let i = 0; i < response.data.length; i++) {
+        html += `
+          <tr>
+            <td>${response.data[i].asset_id}</td>
+            <td>${response.data[i].asset_type}</td>
+            <td>${response.data[i].asset_name}</td>
+            <td>${response.data[i].dept_name}</td>
+            <td>${response.data[i].emp_name}</td>
+            <td>${response.data[i].emp_no}</td>
+            <td>${response.data[i].location_name}</td>
+            <td><button class="btn-info edit-btn">Edit</button></td>
+          </tr>
+        `;
       }
+
+      $(".table-body").html(html);
+
+      getPagination('.table-body');
+
+      // Clear form data
+      $('#myForm')[0].reset();
+
+      // Hide pop-up
+      $(  ).hide();
     }
   }
-$('.pagination-container').on('click', 'li[data-page]', function(evt) {
-evt.stopImmediatePropagation();
-evt.preventDefault();
-var pageNum = $(this).attr('data-page');
-var maxRows = parseInt($('#maxRows').val());
-
-if (pageNum == 'prev') {
-  if (lastPage == 1) {
-    return;
-  }
-  pageNum = --lastPage;
-}
-if (pageNum == 'next') {
-  if (lastPage == $('.pagination li').length - 2) {
-    return;
-  }
-  pageNum = ++lastPage;
-}
-
-lastPage = pageNum;
-var trIndex = 0;
-$('.pagination li').removeClass('active');
-$('.pagination [data-page="' + lastPage + '"]').addClass('active');
-limitPagging();
-
-fetchTableData(lastPage, maxRows, tableBodyElement);
-})
-})
-
-
-
-
-
-
-
-///  Advance searching ✈
-
-/**/
-
-
-///  document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading.
-document.addEventListener("DOMContentLoaded", function() {
-var filterAssetIdInput = document.getElementById("filter-asset-id");
-var filterAssetTypeSelect = document.getElementById("filter-asset-type");
-var filterAssetNameInput = document.getElementById("filter-asset-name");
-var filterDeptNameSelect = document.getElementById("filter-dept-name");
-var filterEmpNameInput = document.getElementById("filter-emp-name");
-var filterEmpNoInput = document.getElementById("filter-emp-no");
-var filterLocationNameSelect = document.getElementById("filter-location-name");
-///here filter the data
-filterAssetIdInput.addEventListener("input", filterTable);
-filterAssetTypeSelect.addEventListener("change", filterTable);
-filterAssetNameInput.addEventListener("input", filterTable);
-filterDeptNameSelect.addEventListener("change", filterTable);
-filterEmpNameInput.addEventListener("input", filterTable);
-filterEmpNoInput.addEventListener("input", filterTable);
-filterLocationNameSelect.addEventListener("change", filterTable);
-///Pop
-function populateDropdown(selectElement, options) {
-  options.forEach(function(option) {
-    var optionElement = document.createElement("option");
-    optionElement.value = option;
-    optionElement.textContent = option;
-    selectElement.appendChild(optionElement);
-  });
-}
-/// Mantosh work starts here
-function fetchData() {
-  fetch('http://localhost:3000/fetch')
-    .then(res => res.json())
-    .then(data => {
-      const { message, answer, answer2 } = data;
-
-      const dept_name_list = message.dept_name.map((dept) => {
-        return dept.dept_name;
-      });
-      const asset_type_list = answer.asset_type.map((asset) => {
-        return asset.asset_type;
-      });
-      const location_name_list = answer2.location_name.map((location) => {
-        return location.location_name;
-      });
-
-      populateDropdown(filterDeptNameSelect, dept_name_list);
-      populateDropdown(filterAssetTypeSelect, asset_type_list);
-      populateDropdown(filterLocationNameSelect, location_name_list);
-    })
-    .catch(err => console.error(err));
-}
-
-// Mantosh works end here
-
-
-
-
-///  Function use for     Filter the latter uperCase to Lowercase
-
-  function filterTable() {
-    var filterAssetId = filterAssetIdInput.value.toUpperCase();
-    var filterAssetType = filterAssetTypeSelect.value.toUpperCase();
-    var filterAssetName = filterAssetNameInput.value.toUpperCase();
-    var filterDeptName = filterDeptNameSelect.value.toUpperCase();
-    var filterEmpName = filterEmpNameInput.value.toUpperCase();
-    var filterEmpNo = filterEmpNoInput.value.toUpperCase();
-    var filterLocationName = filterLocationNameSelect.value.toUpperCase();
-
-    var tableBody = document.querySelector(".table-body");
-    var rows = tableBody.getElementsByTagName("tr");
-    var dataFound = false;
-
-    for (var i = 0; i < rows.length; i++) {
-      var assetId = rows[i].getElementsByTagName("td")[0].textContent.toUpperCase();
-      var assetType = rows[i].getElementsByTagName("td")[1].textContent.toUpperCase();
-      var assetName = rows[i].getElementsByTagName("td")[2].textContent.toUpperCase();
-      var deptName = rows[i].getElementsByTagName("td")[3].textContent.toUpperCase();
-      var empName = rows[i].getElementsByTagName("td")[4].textContent.toUpperCase();
-      var empNo = rows[i].getElementsByTagName("td")[5].textContent.toUpperCase();
-      var locationName = rows[i].getElementsByTagName("td")[6].textContent.toUpperCase();
-
-      if (
-        assetId.includes(filterAssetId) &&
-        assetType.includes(filterAssetType) &&
-        assetName.includes(filterAssetName) &&
-        deptName.includes(filterDeptName) &&
-        empName.includes(filterEmpName) &&
-        empNo.includes(filterEmpNo) &&
-        locationName.includes(filterLocationName)
-      ) {
-        rows[i].style.display = "";
-        dataFound = true;
-      } else {
-        rows[i].style.display = "none";
-      }
-    }
-
-    var noDataMessage = document.getElementById("no-data-message");
-    if (dataFound) {
-      noDataMessage.style.display = "none";
-    } else {
-      noDataMessage.style.display = "block";
-      noDataMessage.textContent = "No data available in the table. ";
-    }
-  }
-  // Fetch initial data and populate dropdowns
-  fetchData();
+});
 });
 
-///  Advance searching ✈✌
-
-// $(document).on('click', '#adv_open-btn', function(event) {
-//   event.preventDefault(); // Prevent form submission
-
-//   // Retrieve search criteria values
-//   var assetType = $("input[name='asset-type']").val();
-//   var assetName = $("input[name='asset-name']").val();
-//   var departmentName = $("input[name='department-tagid']").val();
-//   var employeeName = $("input[name='employee-name']").val();
-//   var employeeNo = $("input[name='employee-id']").val();
-//   var assetLocation = $("input[name='asset-location']").val();
-
-//   $.ajax({
-//     url: "http://localhost:3000/advance-search-asset", //  API
-//     method: "GET",
-//     data: {
-//       action: 'search',
-//       assetType: assetType,
-//       assetName: assetName,
-//       departmentName: departmentName,
-//       employeeName: employeeName,
-//       employeeNo: employeeNo,
-//       assetLocation: assetLocation
-//     },
-//     dataType: "JSON",
-//     success: function(response) {
-//       if (response.code == "NO_DATA_FOUND") {
-//         $(".table-body").empty(); // Clear the table body
-//         $(".no-data-message").text("Data not found"); // Update the message
-//         $(".no-data-message").show(); // Show the message
-//       } else {
-//         $(".no-data-message").hide(); // Hide the message
-
-//         var html = '';
-//         for (let i = 0; i < response.data.length; i++) {
-//           html += `
-//             <tr>
-//               <td>${response.data[i].asset_id}</td>
-//               <td>${response.data[i].asset_type}</td>
-//               <td>${response.data[i].asset_name}</td>
-//               <td>${response.data[i].dept_name}</td>
-//               <td>${response.data[i].emp_name}</td>
-//               <td>${response.data[i].emp_no}</td>
-//               <td>${response.data[i].location_name}</td>
-//               <td><button class="btn-info edit-btn">Edit</button></td>
-//             </tr>
-//           `;
-//         }
-
-//         $(".table-body").html(html);
-
-//         getPagination('.table-body');
-
-//         // Clear form data
-//      // Assuming the popup button has a class called 'popup-btn'
-//       //$(document).on('click', '.adv_open-btn', function() {
-//         // Reset the form data
-//         $('#myForm')[0].reset();
-
-//         // Hide the no-data message
-//         $(".no-data-message").hide();
-//       //});
-//         // Hide pop-up
-//         $('#modal-background-advance-search').hide();
-//       }
-//     }
-//   });
-// })
 
 
-///soumyak code
 
-///  document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading.
 
 
 //single asset Reg form
-
-// Mantosh work starts here
-
-
-
 fetch('http://localhost:3000/fetchdname')
 .then(res => res.json())
 .then(data => {
@@ -758,10 +549,20 @@ return;
 
 // Validate asset ID based on asset class
 
-// var assetIdRegex = /^\d{12}$/;
+var assetIdRegex = /^\d{12}$/;
+if (!assetdv.match(assetIdRegex)) {
+alert('Asset ID must be a 12-digit number.');
+return;
+}
+
+
+// var assetClassValue = assetClass.value; 
+
+// var assetIdRegex = new RegExp('^' + assetClassValue + '\\d{10}$');
+
 // if (!assetdv.match(assetIdRegex)) {
-// alert('Asset ID must be a 12-digit number.');
-// return;
+//   alert('Invalid asset ID for the specified asset class.');
+//   return;
 // }
 
 
@@ -774,7 +575,7 @@ if (!assetdv.match(assetIdRegex)) {
   return;
 }
 
-
+//Mantosh work starts here
 // Set the URL and request method
   var url = 'http://localhost:3000/assetreg'; // Replace with your server-side script URL
   var method = 'POST'; // Replace with the desired request method
@@ -827,6 +628,7 @@ if (!assetdv.match(assetIdRegex)) {
   });
 })
 );
+
 
 
 $(document).ready(function () {
