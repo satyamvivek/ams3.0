@@ -1,7 +1,6 @@
 //excelsheet download
 var people = [
-    { user_id:' ', first_name: ' ', middle_name   : ' ',last_name   : ' ',email   : ' ', password   : ' ', user_type   : ' ',Parent_org:   '',dept_work:'',contact_no:''
-    }
+    { user_id:'', first_name: '', middle_name : '',last_name : '',email   : '', password   : '', user_type   : '',Parent_org:   ''}
   
   ];
   
@@ -28,7 +27,7 @@ var people = [
   
     link = document.createElement('a');
     link.setAttribute('href', excel); //Links to CSV File 
-    link.setAttribute('download', 'test.csv'); //Filename that CSV is saved as
+    link.setAttribute('download', 'multiuser.csv'); //Filename that CSV is saved as
     link.click();
   }
 
@@ -38,10 +37,12 @@ var people = [
   //ajax part
 
   $(document).ready(function() {
-    $('#uploadBtns').on('click', function() {
+    $('#uploadBtns').on('click', function(e) {
+      e.preventDefault();
+      
       var fileInput = $('#uploadFile')[0];
       var file = fileInput.files[0];
-  
+
       if (file) {
         var formData = new FormData();
         formData.append('uploadFile', file);
@@ -52,14 +53,25 @@ var people = [
           processData: false,
           contentType: false,
           success: function(response) {
-            $('#mess').text(response);
-            console.log(response);
+            // $('#mess').text(response);
+            // document.write(response+"<br/>");
+            // setTimeout(function(){
+            //   document.getElementsByClassName("mess")[0].innerHTML = response;
+            // },500000);
+            
+            
+         
             alert(response);
           },
           error: function(error) {
             $('#mess').text('Error uploading file.');
           }
         });
-      }
+    }
     });
   });
+  
+
+//   function refreshPage() {
+//     location.reload(true);
+// }

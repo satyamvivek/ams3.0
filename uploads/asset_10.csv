@@ -1,3 +1,6 @@
 user_id,first_name,middle_name,last_name,email,password,user_type,Parent_org,dept_work,contact_no
-10010,satyam,,vivek,satyam,12345,user,KIIT,MECHANICAL,1234567899
-202020,Soumyak,Ranjan,Behera,m4@gmail.com,54321,ad,KIIT,MECHANICAL,9987654323
+190613,satyam,,vivek,Satyam@12gamil.com,S@123a,Admin,KIIT,CIVIL,9090909090
+123456,ram,,kumar,r@gmail.com,A@123b,user,KIIT,CIVIL,7488471277
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
