@@ -876,39 +876,36 @@ app.get('/fetchdname', (req, res) => {
             })
         }
 
-            let queryResult1 = mssql.query(query1, (err, result1) => {
-                if (err) throw err;
-                const message = {
+        //     let queryResult1 = mssql.query(query1, (err, result1) => {
+        //         if (err) throw err;
+        //         const message = {
 
-                    dept_name: result.recordset
+        //             dept_name: result.recordset
 
-                }
-                console.log(message)
-                const answer = {
-                    asset_type: result1.recordset
-                }
-                res.send({ message: message, answer: answer });
-                console.log(answer)
-            })
-        }
+        //         }
+        //         console.log(message)
+        //         const answer = {
+        //             asset_type: result1.recordset
+        //         }
+        //         res.send({ message: message, answer: answer });
+        //         console.log(answer)
+        //     })
+        // }
 
     })
 
-})
 
-})
+// app.get('/ddata', (req, res) => {
+//     const dn = req.query.dn;
+//     console.log('dn value in fetch api: ' + dn)
+//     let query = `select dept_id from asset.dbo.department where dept_name='${dn}' `
+//     let queryResult = mssql.query(query, (err, result) => {
 
-app.get('/ddata', (req, res) => {
-    const dn = req.query.dn;
-    console.log('dn value in fetch api: ' + dn)
-    let query = `select dept_id from asset.dbo.department where dept_name='${dn}' `
-    let queryResult = mssql.query(query, (err, result) => {
-
-        if (err) throw err
-        if (result.recordset != "") {
-            const message = {
-                dn: dn,
-                dept_id: result.recordset[0].dept_id,
+//         if (err) throw err
+//         if (result.recordset != "") {
+//             const message = {
+//                 dn: dn,
+//                 dept_id: result.recordset[0].dept_id,
 
 app.get('/ddata', (req, res) => {
     const dn = req.query.dn;
@@ -2299,7 +2296,6 @@ app.post('/searchUserAssetsTable', (req, res) => {
 
 
 app.post('/userDetails', (req, res) => {
-app.post('/userDetails', (req, res) => {
     let userID = req.body.userID;
     let query = `SELECT e.first_name, e.middle_name, e.last_name, e.dept_work, u.user_type, e.contact_no, u.email FROM Employees e INNER JOIN Users u ON e.emp_no = u.user_id WHERE user_id = '${userID}'`;
     let queryResult = mssql.query(query, (err, result) => {
@@ -3082,16 +3078,18 @@ app.post('/mDeny', (req, res) => {
         }
     })
 })
-app.post('/aDeny', (req, res) => {
-    // console.log(req.body);
-    let serial = req.body.reqSerial;
-    let id = req.body.reqID;
-    let q = `UPDATE Access_request SET Request_status='Denied' where serial='${serial}' and applicant_id='${id}'`;
-    console.log(q);
-    let queryResult = mssql.query(q, (err, result) => {
-        if (err) throw err
-        else {
-            res.send('Denied');
-        }
-    })
-})
+
+
+// app.post('/aDeny', (req, res) => {
+//     // console.log(req.body);
+//     let serial = req.body.reqSerial;
+//     let id = req.body.reqID;
+//     let q = `UPDATE Access_request SET Request_status='Denied' where serial='${serial}' and applicant_id='${id}'`;
+//     console.log(q);
+//     let queryResult = mssql.query(q, (err, result) => {
+//         if (err) throw err
+//         else {
+//             res.send('Denied');
+//         }
+//     })
+// })
