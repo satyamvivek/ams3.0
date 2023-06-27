@@ -98,6 +98,12 @@
                     <label for="signup" class="slide signup">Multiple Asset</label>
 
                     <div class="slider-tab"></div>
+                    <input type="radio" name="slide" id="signup">
+
+                    <label for="login" class="slide login">Single Asset</label>
+                    <label for="signup" class="slide signup">Multiple Asset</label>
+
+                    <div class="slider-tab"></div>
                 </div>
                 <div class="form-inner">
 
@@ -136,6 +142,8 @@
                         <input type="submit" value="Register Asset">
                         </div>
                 </div> -->
+                    <!-- </form> -->
+                    <form action="#" class="login" id="Assetreg">
                     <!-- </form> -->
                     <form action="#" class="login" id="Assetreg">
                         <h1>Single Asset Registration </h1>
@@ -200,10 +208,17 @@
                         </div>
                     </form>
 
+                        </div>
+                    </form>
+
                     <form action="#" class="signup">
+
 
                         <div class="container-csv">
                             <div class="card-csv">
+                                <h3>Upload File</h3>
+                                <div class="drop-box-csv">
+                                    <!-- <header>
                                 <h3>Upload File</h3>
                                 <div class="drop-box-csv">
                                     <!-- <header>
@@ -234,13 +249,25 @@
                                             class='bx bx-downvote'></i>Download CSV file</button>
                                 </div>
 
+
+                                <div class="file-csv">
+
+                                    <button onclick="downloadCSV(people)" style="margin-top: -5px;"><i
+                                            class='bx bx-downvote'></i>Download CSV file</button>
+                                </div>
+
                             </div>
+
+                        </div>
+
 
                         </div>
 
                     </form>
 
+
                 </div>
+
 
             </div>
         </div>
@@ -328,7 +355,6 @@
                             <div class="form-group-11">
                                 <input type="submit" class="save-edit" id="save-btn"
                                     style="width: 10vw; height: 4vh; margin-left: 30%;" value="Save">
-
                             </div>
                         </div>
                     </form>
@@ -370,9 +396,11 @@
                     </div>
 
                     <div class="form-group-21"> <!--		Show Numbers Of Rows 		-->
+                    <div class="form-group-21"> <!--		Show Numbers Of Rows 		-->
                         <h7>Select Number Of Rows</h7>
                         <select class="form-control" name="state" id="maxRows">
                             <option value="5000">Show ALL Rows</option>
+
 
                             <option value="50" selected>50</option>
                             <option value="100">100</option>
@@ -423,9 +451,26 @@
                                     </tbody>
                                 </table>
 
+
                             </div> <!-- /.table-scroll -->
                             <div id="no-data-message" style="display: none;">Data is not available</div> 
                         </div> <!-- /.table-wrapoer -->
+                        <!--   next page pagination-->
+                        <div class='pagination-container'>
+                            <nav>
+                                <ul class="pagination">
+                                    <li data-page="prev">
+                                        <span>
+                                            < <span class="sr-only">(current)
+                                        </span></span>
+                                    </li>
+                                    <!--	Here the JS Function Will Add the Rows -->
+                                    <li data-page="next" id="prev">
+                                        <span> > <span class="sr-only">(current)</span></span>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                         <!--   next page pagination-->
                         <div class='pagination-container'>
                             <nav>
@@ -461,11 +506,12 @@
 
 
 
+
     <!---Script for seaching the table data-->
-    <!--12/06.23-->
-    <script>
-        var pageSize = 100; // Number of rows to display per page
-        var currentPage = 1; // Current page number
+<script>
+
+    var pageSize = 100; // Number of rows to display per page
+    var currentPage = 1; // Current page number
 
         function searchTable() {
             var input, filter, table, tbody, tr, td, i, j, txtValue, found;
@@ -475,10 +521,10 @@
             tbody = table.getElementsByTagName("tbody")[0];
             tr = tbody.getElementsByTagName("tr");
 
-            var startIndex = (currentPage - 1) * pageSize;
-            var endIndex = startIndex + pageSize;
+        var startIndex = (currentPage - 1) * pageSize;
+        var endIndex = startIndex + pageSize;
 
-            var dataFound = false; // Flag to track if data is found
+        var dataFound = false; // Flag to track if data is found
 
             var searchWords = filter.split(" ");
 
@@ -520,21 +566,21 @@
                     messageCell.setAttribute("colspan", tr[0].cells.length);
                     messageCell.textContent = "Data is not available.";
 
-                    messageRow = document.createElement("tr");
-                    messageRow.setAttribute("id", "message-row");
-                    messageRow.appendChild(messageCell);
+                messageRow = document.createElement("tr");
+                messageRow.setAttribute("id", "message-row");
+                messageRow.appendChild(messageCell);
 
-                    tbody.appendChild(messageRow);
-                }
-            } else if (messageRow) {
-                messageRow.style.display = "none"; // Hide the message row if data is found
+                tbody.appendChild(messageRow);
             }
+        } else if (messageRow) {
+            messageRow.style.display = "none"; // Hide the message row if data is found
         }
+    }
 
-        function goToPage(page) {
-            currentPage = page;
-            searchTable();
-        }
+    function goToPage(page) {
+        currentPage = page;
+        searchTable();
+    }
 
     </script>
 
@@ -554,7 +600,6 @@
 
 
 
-    <!---SCRIPT FOR POPUP  the single and Muliple Asset Registion -->
     <script>
         // select the open-btn button
         let openBtn = document.getElementById('open-btn');
@@ -566,12 +611,11 @@
         let form = document.querySelector('wrapper');
         // flag to track if close button is clicked
         let isCloseButtonClicked = false;   ///   here   boolen function
-
-        // shows the modal when the user clicks open-btn    
+        // shows the modal when the user clicks open-btn        
         openBtn.addEventListener('click', function () {
             modalBackground.style.display = 'block';
         });
-
+    
         // hides the modal when the user clicks close-btn
         closeBtn.addEventListener('click', function () {
             modalBackground.style.display = 'none';
@@ -587,16 +631,10 @@
 
         // prevent closing the modal when clicking outside
         window.addEventListener('click', function (event) {
-            // check if the event target is the modal background itself
-            if (event.target === modalBackground && event.targe !== closeBtn) {
-                if (!isCloseButtonClicked) {
-                    return;
-                }
-                isCloseButtonClicked = false;
-            }
-            // check if the event target is a child element of the modal content
-            if (!modalBackground.contains(event.target)) {
-                return;
+            // check if the event happened on the modal-background
+            if (event.target === modalBackground) {
+                // hides the modal
+                modalBackground.style.display = 'none';
             }
             // hide the modal only if the clicked element is not within the modal content
             modalBackground.style.display = 'none';

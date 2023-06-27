@@ -8,6 +8,13 @@ $(document).ready(function() {
     let emp_name ;
     let emp_no ;
     let location_name ;
+  let asset_id ;
+    let asset_type ;
+    let asset_name;
+    let dept_name ;
+    let emp_name ;
+    let emp_no ;
+    let location_name ;
 
   function load_data() {
     console.log("Loading");
@@ -778,6 +785,26 @@ if (!assetdv.match(assetIdRegex)) {
 }
 
 
+// var assetClassValue = assetcl.value; 
+
+// var assetIdRegex = new RegExp('^' + assetClassValue + '\\d{10}$');
+
+// if (!assetdv.match(assetIdRegex)) {
+//   alert('Invalid asset ID(12-digits) for the specified asset class.');
+//   return;
+// }
+
+
+var assetClassValue = assetcl.value; 
+
+var assetIdRegex = new RegExp('^' + assetClassValue + '\\d{10}$');
+
+if (!assetdv.match(assetIdRegex)) {
+  alert('Invalid asset ID(12-digits) for the specified asset class.');
+  return;
+}
+
+//Mantosh work starts here
 // Set the URL and request method
   var url = 'http://localhost:3000/assetreg'; // Replace with your server-side script URL
   var method = 'POST'; // Replace with the desired request method

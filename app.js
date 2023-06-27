@@ -850,6 +850,7 @@ app.post('/advanceSearchForAudit',(req,res) =>{
 //satyam vivek work end  
 
 // Mantosh work
+// Mantosh work
 
 ///single Asset Reg    
 app.get('/fetchdname', (req, res) => {
@@ -875,9 +876,39 @@ app.get('/fetchdname', (req, res) => {
             })
         }
 
+            let queryResult1 = mssql.query(query1, (err, result1) => {
+                if (err) throw err;
+                const message = {
+
+                    dept_name: result.recordset
+
+                }
+                console.log(message)
+                const answer = {
+                    asset_type: result1.recordset
+                }
+                res.send({ message: message, answer: answer });
+                console.log(answer)
+            })
+        }
+
     })
 
 })
+
+})
+
+app.get('/ddata', (req, res) => {
+    const dn = req.query.dn;
+    console.log('dn value in fetch api: ' + dn)
+    let query = `select dept_id from asset.dbo.department where dept_name='${dn}' `
+    let queryResult = mssql.query(query, (err, result) => {
+
+        if (err) throw err
+        if (result.recordset != "") {
+            const message = {
+                dn: dn,
+                dept_id: result.recordset[0].dept_id,
 
 app.get('/ddata', (req, res) => {
     const dn = req.query.dn;
@@ -898,6 +929,7 @@ app.get('/ddata', (req, res) => {
         else {
             res.json({ message: 'No existing department!!!' })
         }
+    })
     })
 
 })
@@ -2266,6 +2298,7 @@ app.post('/searchUserAssetsTable', (req, res) => {
 });
 
 
+app.post('/userDetails', (req, res) => {
 app.post('/userDetails', (req, res) => {
     let userID = req.body.userID;
     let query = `SELECT e.first_name, e.middle_name, e.last_name, e.dept_work, u.user_type, e.contact_no, u.email FROM Employees e INNER JOIN Users u ON e.emp_no = u.user_id WHERE user_id = '${userID}'`;

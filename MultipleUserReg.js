@@ -53,14 +53,8 @@ var people = [
           processData: false,
           contentType: false,
           success: function(response) {
-            // $('#mess').text(response);
-            // document.write(response+"<br/>");
-            // setTimeout(function(){
-            //   document.getElementsByClassName("mess")[0].innerHTML = response;
-            // },500000);
-            
-            
-         
+            $('#mess').text(response);
+            console.log(response);
             alert(response);
           },
           error: function(error) {
